@@ -10,6 +10,18 @@ const steps = [
 export default function Tips() {
   return (
     <section className="relative w-full flex justify-center items-center px-4 py-24 bg-navy rounded-b-none overflow-hidden">
+      {/* Curved top shape (no shadow) */}
+      <div className="absolute inset-0 z-0 pointer-events-none select-none">
+        <svg
+          className="w-full h-full"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          {/* Kurva: kiri bawah (lebih dalam), tengah sedang, kanan atas (lebih tinggi) */}
+          <path d="M0,0 L100,0 L100,10 C75,15 25,22 0,35 Z" fill="#ffffff" />
+        </svg>
+      </div>
       {/* Texture Overlay */}
       <div className="absolute inset-0 w-full h-full pointer-events-none select-none">
         <Image
@@ -26,8 +38,8 @@ export default function Tips() {
           <Image
             src="/assets/logo-sadari.png"
             alt="Sadari 4Life"
-            width={80}
-            height={80}
+            width={150}
+            height={150}
             className="mb-8"
             priority
           />
