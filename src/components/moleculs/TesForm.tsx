@@ -29,18 +29,18 @@ export default function TesForm() {
 
   return (
     <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div className="grid w-full max-w-sm items-center gap-3">
+      <div className="grid w-full md:max-w-none items-center gap-3">
         <Label htmlFor="name">Nama Lengkap</Label>
         <Input type="input" id="name" placeholder="Masukkan Nama Anda" />
       </div>
-      <div className="grid w-full max-w-sm items-center gap-3">
+      <div className="grid w-full md:max-w-none items-center gap-3">
         <Label htmlFor="phone">No Handphone</Label>
         <Input type="text" id="phone" placeholder="628xxxxxxxxx" />
       </div>
-      <div className="grid w-full items-center gap-2">
+      <div className="grid w-full md:max-w-none items-center gap-2">
         <Calendar28 label="Tanggal Lahir" placeholder="Pilih tanggal lahir" />
       </div>
-      <div className="grid w-full max-w-sm items-center gap-3">
+      <div className="grid w-full md:max-w-none items-center gap-3">
         <Label htmlFor="address">Alamat</Label>
         <Input type="text" id="address" placeholder="Jl.xxxx" />
       </div>
