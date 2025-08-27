@@ -18,11 +18,11 @@ export default function Navbar() {
             height={48}
             priority
           />
-          <span className="text-lg text-slate-900 font-semibold tracking-wide">
+          <span className="text-lg text-navy font-bold tracking-wide">
             SADARI 4LIFE
           </span>
         </div>
-        <div className="flex items-center gap-8 text-sm text-slate-800">
+        <div className="flex items-center gap-8 text-md text-slate-800">
           <Link href="#tes" className="hover:opacity-80 transition-opacity">
             Tes
           </Link>
