@@ -4,6 +4,7 @@ import Gejala from "@/components/organisms/Gejala";
 import ScrollButton from "@/components/moleculs/ScrollButton";
 import About from "@/components/organisms/About";
 import Tips from "@/components/organisms/Tips";
+import Footer from "@/components/organisms/Footer";
 
 export default function Home() {
   return (
@@ -23,6 +24,9 @@ export default function Home() {
       </section>
       <section className="pb-40">
         <Tips />
+      </section>
+      <section>
+        <Footer />
       </section>
     </main>
   );
