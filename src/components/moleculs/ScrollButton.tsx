@@ -8,7 +8,7 @@ export default function ButtonScroll() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 300) {
+      if (window.scrollY > 500) {
         setActive(true);
       } else {
         setActive(false);
@@ -24,14 +24,17 @@ export default function ButtonScroll() {
 
   const handleClick = () => {
     window.scrollTo({
-      top: window.top,
+      top: 0,
       behavior: "smooth",
     });
   };
   return (
     <div
-      className={`size-12 bg-navy rounded-full fixed bottom-5 right-5 z-50 cursor-pointer flex items-center justify-center transition-opacity duration-500 ${active ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-      onClick={handleClick}>
+      className={`size-12 bg-navy rounded-full fixed bottom-5 right-5 z-50 cursor-pointer flex items-center justify-center transition-opacity duration-500 ${
+        active ? "opacity-100" : "opacity-0 pointer-events-none"
+      }`}
+      onClick={handleClick}
+    >
       <Image src={Arrow} alt="arrow" className="size-6 " />
     </div>
   );
