@@ -37,7 +37,7 @@ export default function Result() {
 
             <div className="p-8">
               {/* Main Result Card */}
-              <div className="flex justify-center gap-4 mb-10 ">
+              <div className="flex flex-col items-center  lg:flex-row justify-center gap-4 mb-10 ">
                 {/* Status Card */}
                 <div className="">
                   <div className="relative  rounded-2xl p-8 text-center group -xl transition-all duration-300">
