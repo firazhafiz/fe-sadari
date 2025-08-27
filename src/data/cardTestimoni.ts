@@ -1,10 +1,10 @@
-export interface CardTestimonialsItem {
+export interface CardTestimoniItem {
   year: string;
   description: string;
   name: string;
 }
 
-export const cardTestimonialsData: CardTestimonialsItem[] = [
+export const cardTestimoniData: CardTestimoniItem[] = [
   {
     year: "2025",
     description:

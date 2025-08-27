@@ -2,13 +2,28 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   return (
-    <nav className="w-full bg-white">
+    <nav
+      className={`w-full fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-white/70 backdrop-blur-md shadow-sm" : "bg-white"
+      }`}
+    >
       <div
-        className="mx-auto flex w-full max-w-7xl items-center justify-between px-4"
-        style={{ paddingTop: "18px", paddingBottom: "18px" }}
+        className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4"
+        // style={{ paddingTop: "18px", paddingBottom: "18px" }}
       >
         <div className="flex items-center gap-3">
           <Image
