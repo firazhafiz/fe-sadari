@@ -9,7 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@prisma/client": "^6.14.0",
     "next": "15.5.2",
     "react": "19.1.0",
@@ -17,8 +16,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
-=======
     "@tailwindcss/postcss": "^4.1.12",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -29,23 +26,15 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^4.1.12"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3",
->>>>>>> 5e9ca43d5a1d5bcdaa29a4b2f52abd5420283abc
+    "tailwindcss": "^4.1.12",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
-<<<<<<< HEAD
     "prisma": "^6.14.0",
-    "tailwindcss": "^4",
-=======
     "tailwindcss-animate": "^1.0.7",
     "tw-animate-css": "^1.3.7",
->>>>>>> 5e9ca43d5a1d5bcdaa29a4b2f52abd5420283abc
     "typescript": "^5"
   }
 }

@@ -1,5 +1,6 @@
 import { HeroScrollDemo } from "@/components/organisms/Hero";
 import Header from "@/components/organisms/Header";
+import Aboute from "@/components/ui/about";
 
 export default function Home() {
   return (
@@ -9,6 +10,9 @@ export default function Home() {
       </section>
       <section>
         <HeroScrollDemo />
+      </section>
+      <section>
+        <Aboute />
       </section>
     </main>
   );
