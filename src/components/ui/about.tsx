@@ -8,7 +8,7 @@ export default function Aboute() {
       <div className=" absolute top-0 left-0 h-full w-full [clip-path:polygon(0%_0,100%_0,100%_100%,0_70%)] bg-[#FCEE21] z-0"></div>
 
       <div className="z-10">
-        <div className="h-[540px] w-[420px] bg-blue-950 rounded-[40px] overflow-hidden">
+        <div className="h-[540px] w-[420px] bg-blue-950 rounded-[40px] overflow-hidden ">
           <Image src={"/assets/about.png"} alt="hipertensi" height={540} width={420} className="h-full w-full object-cover" />
         </div>
       </div>
@@ -16,7 +16,7 @@ export default function Aboute() {
         <h2 className="font-bold text-4xl  text-slate-900 ">Apa itu Hipertensi?</h2>
         <p className="mt-4 text-slate-700 text-lg">
           Hipertensi atau tekanan darah tinggi adalah salah satu penyakit yang sering disebut sebagai
-          <span className="font-semibold">“silent killer”</span>. Banyak orang tidak menyadari dirinya mengidap hipertensi karena sering kali tidak menunjukkan gejala yang jelas. Namun, kondisi ini dapat meningkatkan risiko
+          <span className="font-semibold"> “silent killer”</span>. Banyak orang tidak menyadari dirinya mengidap hipertensi karena sering kali tidak menunjukkan gejala yang jelas. Namun, kondisi ini dapat meningkatkan risiko
           <span className="font-semibold"> serangan jantung, stroke, dan kerusakan organ vital</span> jika dibiarkan tanpa penanganan.
           <br />
           <br />
