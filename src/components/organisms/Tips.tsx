@@ -20,7 +20,7 @@ export default function Tips() {
           priority
         />
       </div>
-      <div className="relative z-10 w-full max-w-7xl flex flex-col md:flex-row items-center justify-between gap-12 md:gap-0">
+      <div className="relative z-10 w-full max-w-6xl flex flex-col md:flex-row items-center justify-between gap-12 md:gap-0">
         {/* Left: Logo, Title, Desc, Button */}
         <div className="flex-1 flex flex-col items-center md:items-start justify-center gap-2 md:gap-6 max-w-md">
           <Image
@@ -39,7 +39,7 @@ export default function Tips() {
           </p>
           <a
             href="#order"
-            className="mt-2 px-8 py-3 rounded-md bg-cream text-navy text-lg font-semibold shadow hover:bg-gray-100 transition-colors"
+            className="mt-2 px-8 py-3 rounded-md bg-white text-navy text-lg font-semibold shadow hover:bg-gray-100 transition-colors"
           >
             Tes Sekarang
           </a>
