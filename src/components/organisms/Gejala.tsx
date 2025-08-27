@@ -10,7 +10,7 @@ export default function Gejala() {
             Hipertensi yang Sering Diabaikan
           </h3>
         </div>
-        <div className="relative  w-full flex justify-center px-40 items-center mt-4">
+        <div className="relative font-delius w-full flex justify-center px-40 items-center mt-4">
           <Image
             src={"/assets/gejala.svg"}
             alt="gejala"
