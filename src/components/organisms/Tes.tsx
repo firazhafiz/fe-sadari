@@ -33,7 +33,7 @@ export default function Tes({
       <div className="w-full max-w-xl">
         <h1 className="hidden md:block text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
           Tes Screening Hipertensi by{" "}
-          <span className="text-blue-500">SADARI 4LIFE</span>
+          <span className="text-[#FD567E]">SADARI 4LIFE</span>
         </h1>
         <p className="mt-3 text-slate-700 text-sm md:text-base max-w-xl">
           Tes ini dirancang untuk membantu kamu menganalisis resiko terkena

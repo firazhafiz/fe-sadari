@@ -16,7 +16,7 @@ export function HeroScrollDemo() {
           <>
             <h1 className="text-4xl font-extralight text-slate-800">
               Selamat datang di <br />
-              <span className="text-4xl md:text-[6rem] text-navy font-bold mt-1 leading-none">
+              <span className="text-4xl md:text-[6rem] text-[#FD567E] font-bold mt-1 leading-none">
                 SADARi 4LIFE
               </span>
             </h1>

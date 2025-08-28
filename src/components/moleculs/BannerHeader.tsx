@@ -1,6 +1,6 @@
 export default function BannerHeader() {
   return (
-    <div className="w-full relative bg-cream text-slate-800">
+    <div className="w-full relative bg-navy text-white">
       <div
         className="mx-auto w-full max-w-7xl px-4 text-center tracking-[1px] md:tracking-[0.3em]"
         style={{ paddingTop: "15px", paddingBottom: "15px" }}
