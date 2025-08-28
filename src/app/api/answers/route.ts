@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     const { nama, alamat, tanggal_lahir, no_hp, jawaban, hasil_persen } = body;
 
     if (!nama || !jawaban || jawaban.length !== 20) {
-      return NextResponse.json({ error: "Nama, 20 jawaban, dan hasil_persen wajib diisi" }, { status: 400 });
+      return NextResponse.json({ error: "Data peserta tes dan jawaban wajib diisi" }, { status: 400 });
     }
 
     const user = await prisma.user.create({
