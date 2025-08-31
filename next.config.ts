@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizePackageImports: ["lucide-react"],
+    optimizeCss: false, // matikan LightningCSS
   },
 };
 
