@@ -3,19 +3,17 @@ import { Poppins, Delius } from "next/font/google";
 import "./globals.css";
 
 const poppins = Poppins({
-  variable: "--font-poppins",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
   display: "swap",
-  fallback: ["Arial", "Helvetica", "sans-serif"],
 });
 
 const delius = Delius({
-  variable: "--font-delius",
-  weight: "400",
   subsets: ["latin"],
+  weight: "400",
+  variable: "--font-delius",
   display: "swap",
-  fallback: ["Arial", "Helvetica", "sans-serif"],
 });
 
 export const metadata: Metadata = {
@@ -29,11 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${poppins.variable} ${delius.variable} antialiased`}
-    >
-      <body>{children}</body>
+    <html lang="en" className={`${poppins.variable} ${delius.variable}`}>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }
