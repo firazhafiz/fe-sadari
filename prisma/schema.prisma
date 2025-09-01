@@ -18,28 +18,18 @@ model User {
 }
 
 model Answer {
-  id           Int   @id @default(autoincrement())
-  userId       Int
-  jawaban1     Int?
-  jawaban2     Int?
-  jawaban3     Int?
-  jawaban4     Int?
-  jawaban5     Int?
-  jawaban6     Int?
-  jawaban7     Int?
-  jawaban8     Int?
-  jawaban9     Int?
-  jawaban10    Int?
-  jawaban11    Int?
-  jawaban12    Int?
-  jawaban13    Int?
-  jawaban14    Int?
-  jawaban15    Int?
-  jawaban16    Int?
-  jawaban17    Int?
-  jawaban18    Int?
-  jawaban19    Int?
-  jawaban20    Int?
+  id           Int            @id @default(autoincrement())
   hasil_persen Float
-  user         User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       Int
+  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  details      AnswerDetail[]
+}
+
+model AnswerDetail {
+  id       Int    @id @default(autoincrement())
+  answerId Int
+  soalId   Int // nomor atau ID soal
+  jawaban  String
+  score    Int
+  answer   Answer @relation(fields: [answerId], references: [id], onDelete: Cascade)
 }
