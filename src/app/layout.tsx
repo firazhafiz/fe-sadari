@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, Delius } from "next/font/google";
 import "./globals.css";
+import { AnswerProvider } from "@/context/answerContext";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -29,11 +30,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${poppins.variable} ${delius.variable} antialiased`}
-    >
-      <body>{children}</body>
+    <html lang="en" className={`${poppins.variable} ${delius.variable} antialiased`}>
+      <body>
+        <AnswerProvider>{children}</AnswerProvider>
+      </body>
     </html>
   );
 }
