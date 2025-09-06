@@ -6,16 +6,17 @@ import { useAnswerContext } from "@/context/answerContext";
 import ExitConfirmModal from "@/components/moleculs/ExitConfirmModal";
 import { useRouteLeave } from "@/hooks/useRouteLeave";
 import UserForm from "@/components/moleculs/UserForm";
-import TestResult from "@/components/moleculs/TestResult";
+import { useRouter } from "next/navigation";
 
 export default function Start() {
-  const { setShowExitModal, formAnswer, saveAnswer, getAnswer } = useAnswerContext();
+  const { setShowExitModal, formAnswer, saveAnswer, getAnswer, submitAnswers } = useAnswerContext();
   const totalSoal = soalHipertensi.length;
   const [currentSoal, setCurrentSoal] = useState<number>(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [showTest, setShowTest] = useState(false);
-  const [showResult, setShowResult] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   useRouteLeave();
 
@@ -89,10 +90,26 @@ export default function Start() {
     setShowExitModal(true);
   };
 
-  const handleSubmitAnswers = () => {
-    // Here you would typically send the data to your API
-    // Show the test result
-    setShowResult(true);
+  const handleSubmitAnswers = async () => {
+    try {
+      setLoading(true);
+      const result = await submitAnswers();
+      if (result.success) {
+        // Show the test result
+        router.push("/tes-hipertensi/result");
+      } else {
+        // Handle error - you might want to show an error message
+        console.error("Failed to submit answers:", result.error);
+        // For now, still show the result, but you could add error handling here
+        router.push("/tes-hipertensi/result");
+      }
+    } catch (error) {
+      console.error("Error submitting answers:", error);
+      // Still show result for now
+      router.push("/tes-hipertensi/result");
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Show user form if no user data
@@ -107,22 +124,6 @@ export default function Start() {
           </div>
 
           <UserForm onComplete={() => setShowTest(true)} />
-        </div>
-      </div>
-    );
-  }
-
-  if (showResult) {
-    return (
-      <div className="min-h-screen flex justify-center items-start w-full bg-white px-4 sm:px-6 md:px-12 lg:px-20 py-6">
-        <div className="w-full">
-          {/* Logo & Title */}
-          <div className="flex gap-3 sm:gap-4 items-center justify-center mb-8">
-            <Image src={"/assets/logo-sadari.png"} width={64} height={64} alt="SADARI 4LIFE Logo" className="h-12 sm:h-16 w-auto" />
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">SADARI 4LIFE</h2>
-          </div>
-
-          <TestResult />
         </div>
       </div>
     );
@@ -193,7 +194,7 @@ export default function Start() {
                 !isCurrentQuestionAnswered() ? "bg-gray-300 cursor-not-allowed opacity-50 text-gray-500" : "bg-green-500 cursor-pointer hover:bg-green-600 text-white shadow-lg"
               }`}
               title="Selesai dan Lihat Hasil">
-              Selesai
+              {loading ? <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mx-auto"></div> : "Selesai"}
             </button>
           ) : (
             // Next button for other questions

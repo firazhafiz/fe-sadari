@@ -1,9 +1,125 @@
-import React from "react";
-import { Heart, Activity, Apple, Shield, CheckCircle, AlertTriangle } from "lucide-react";
+"use client";
+import React, { useEffect, useState } from "react";
+import { Activity, Apple, Shield, CheckCircle, AlertTriangle } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { useAnswerContext } from "@/context/answerContext";
+import { hasilHipertensi } from "@/data/hasil";
+import { useRouter } from "next/navigation";
+
+type UserData = {
+  id: number;
+  nama: string;
+  alamat: string | null;
+  tanggal_lahir: Date | null;
+  no_hp: string | null;
+  answers: Array<{
+    id: number;
+    hasil_persen: number;
+    userId: number;
+    created_at: Date | null;
+    updated_at: Date | null;
+    details: Array<{
+      id: number;
+      answerId: number;
+      soalId: number;
+      jawaban: string;
+      score: number;
+    }>;
+  }>;
+};
 
 export default function Result() {
+  const { submittedUserId, clearAllData } = useAnswerContext();
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!submittedUserId) {
+      // If no submitted user ID, redirect to start page
+      router.push("/tes-hipertensi/start");
+      return;
+    }
+
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`/api/answers?userId=${submittedUserId}`);
+        const result = await response.json();
+
+        if (result.success && result.data) {
+          setUserData(result.data);
+        } else {
+          setError(result.error || "Failed to fetch user data");
+        }
+      } catch (err) {
+        setError("Network error occurred");
+        console.error("Error fetching user data:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [submittedUserId, router]);
+
+  // Calculate total score and result
+  const calculateResult = () => {
+    if (!userData || !userData.answers.length) return null;
+
+    const latestAnswer = userData.answers[0];
+    const totalScore = latestAnswer.details.reduce((total, detail) => total + detail.score, 0);
+    const maxPossibleScore = 120;
+    const percentage = Math.min((totalScore / maxPossibleScore) * 100, 100);
+
+    // Determine result category based on percentage
+    const getResultCategory = (percentage: number) => {
+      if (percentage <= 20) return hasilHipertensi[0]; // Normal (0-20%)
+      if (percentage <= 40) return hasilHipertensi[1]; // Pre-Hipertensi (21-40%)
+      if (percentage <= 60) return hasilHipertensi[2]; // Hipertensi Tahap 1 (41-60%)
+      if (percentage <= 80) return hasilHipertensi[3]; // Hipertensi Tahap 2 (61-80%)
+      return hasilHipertensi[4]; // Krisis Hipertensi (>80%)
+    };
+
+    return {
+      percentage,
+      resultCategory: getResultCategory(percentage),
+      totalScore,
+    };
+  };
+
+  const result = calculateResult();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">Memuat hasil tes...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !userData || !result) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-red-500 text-6xl mb-4">⚠️</div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">Terjadi Kesalahan</h2>
+          <p className="text-gray-600 mb-4">{error || "Data tidak ditemukan"}</p>
+          <button
+            onClick={() => {
+              clearAllData();
+              router.push("/tes-hipertensi/start");
+            }}
+            className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
+            Mulai Tes Ulang
+          </button>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-teal-50">
       {/* Background Pattern */}
@@ -43,14 +159,18 @@ export default function Result() {
                   <div className="relative  rounded-2xl p-8 text-center group -xl transition-all duration-300">
                     <div className="absolute inset-0 bg-gradient-to-br from-green-400/10 to-emerald-400/10 rounded-2xl opacity-0 transition-opacity"></div>
                     <div className="relative">
-                      <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg" style={{ background: `linear-gradient(135deg, ${result.resultCategory.warna}, ${result.resultCategory.warna}dd)` }}>
                         <Shield className="w-10 h-10 text-white" />
                       </div>
                       <h3 className="text-lg font-semibold text-gray-700 mb-2">Status Kesehatan</h3>
-                      <p className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">89%</p>
-                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 rounded-full">
-                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                        <span className="text-green-700 font-medium">Normal</span>
+                      <p className="text-4xl sm:text-5xl font-bold mb-2" style={{ color: result.resultCategory.warna }}>
+                        {Math.round(result.percentage)}%
+                      </p>
+                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full" style={{ backgroundColor: `${result.resultCategory.warna}20` }}>
+                        <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: result.resultCategory.warna }}></div>
+                        <span className="font-medium" style={{ color: result.resultCategory.warna }}>
+                          {result.resultCategory.kategori}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -58,9 +178,7 @@ export default function Result() {
 
                 {/* Description */}
                 <div className="flex items-center max-w-[500px]">
-                  <p className="text-gray-700 leading-relaxed text-lg ">
-                    Selamat! Tekanan darah Anda saat ini berada pada rentang normal, dan risiko hipertensi Anda rendah. Hasil ini menunjukkan bahwa sistem kardiovaskular Anda berfungsi dengan baik.
-                  </p>
+                  <p className="text-gray-700 leading-relaxed text-lg">{result.resultCategory.penjelasan}</p>
                 </div>
               </div>
 
@@ -72,21 +190,15 @@ export default function Result() {
                     <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                       <Activity className="w-5 h-5 text-white" />
                     </div>
-                    <h3 className="font-bold text-gray-800">Aktivitas Fisik</h3>
+                    <h3 className="font-bold text-gray-800">{result.resultCategory.aktivitas_fisik.judul}</h3>
                   </div>
                   <ul className="space-y-3 text-gray-700">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm">Olahraga ringan–sedang minimal 150 menit/minggu</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm">Jalan cepat, bersepeda, berenang</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm">Peregangan setiap hari</span>
-                    </li>
+                    {result.resultCategory.aktivitas_fisik.rekomendasi.map((rec, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
+                        <span className="text-sm">{rec}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
 
@@ -96,21 +208,15 @@ export default function Result() {
                     <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                       <Apple className="w-5 h-5 text-white" />
                     </div>
-                    <h3 className="font-bold text-gray-800">Pola Makan</h3>
+                    <h3 className="font-bold text-gray-800">{result.resultCategory.diet.judul}</h3>
                   </div>
                   <ul className="space-y-3 text-gray-700">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm">Konsumsi sayur, buah, dan biji-bijian</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm">Protein rendah lemak (ikan, ayam tanpa kulit)</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm">Batasi garam {"<"} 5 gram/hari</span>
-                    </li>
+                    {result.resultCategory.diet.rekomendasi.map((rec, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                        <span className="text-sm">{rec}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
 
@@ -120,23 +226,33 @@ export default function Result() {
                     <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-pink-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                       <AlertTriangle className="w-5 h-5 text-white" />
                     </div>
-                    <h3 className="font-bold text-gray-800">Hindari</h3>
+                    <h3 className="font-bold text-gray-800">{result.resultCategory.avoid.judul}</h3>
                   </div>
                   <ul className="space-y-3 text-gray-700">
-                    <li className="flex items-start gap-2">
-                      <AlertTriangle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm">Makanan cepat saji tinggi garam dan lemak</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <AlertTriangle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm">Minuman manis berlebihan</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <AlertTriangle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm">Rokok dan alkohol</span>
-                    </li>
+                    {result.resultCategory.avoid.items.map((item, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <AlertTriangle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
+                        <span className="text-sm">{item}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
+              </div>
+
+              {/* Additional Information */}
+              {result.resultCategory.informasi_tambahan && (
+                <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <p className="text-sm text-yellow-800 text-center">
+                    <strong>Informasi Tambahan:</strong> {result.resultCategory.informasi_tambahan}
+                  </p>
+                </div>
+              )}
+
+              {/* Disclaimer */}
+              <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <p className="text-sm text-yellow-800 text-center">
+                  ⚠️ <strong>Peringatan:</strong> Hasil tes ini hanya untuk screening awal dan tidak menggantikan diagnosis medis. Konsultasikan dengan dokter untuk pemeriksaan yang lebih akurat.
+                </p>
               </div>
             </div>
           </div>
@@ -147,10 +263,25 @@ export default function Result() {
               <h3 className="text-2xl font-bold text-gray-800 mb-4">Jaga Kesehatan Anda</h3>
               <p className="text-gray-600 mb-6">Lakukan pemeriksaan rutin dan terapkan gaya hidup sehat untuk mempertahankan kondisi optimal Anda.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="px-8 py-3 bg-gradient-to-r from-green-500 cursor-pointer to-teal-600 text-white font-semibold rounded-xl -lg transition-all duration-300 hover:scale-105">Tes Ulang</button>
-                <Link href={"/"} className="px-8 py-3 border-2 border-green-500 cursor-pointer text-green-600 font-semibold rounded-xl hover:bg-green-50 transition-all duration-300">
+                <button
+                  onClick={() => {
+                    clearAllData();
+                    router.push("/tes-hipertensi/start");
+                  }}
+                  className="px-8 py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105">
+                  Tes Ulang
+                </button>
+                <button onClick={() => window.print()} className="px-8 py-3 border-2 border-green-500 text-green-600 font-semibold rounded-xl hover:bg-green-50 transition-all duration-300">
+                  Cetak Hasil
+                </button>
+                <button
+                  onClick={() => {
+                    clearAllData();
+                    router.push("/");
+                  }}
+                  className="px-8 py-3 border-2 border-gray-300 text-gray-600 font-semibold rounded-xl hover:bg-gray-50 transition-all duration-300">
                   Beranda
-                </Link>
+                </button>
               </div>
             </div>
           </div>

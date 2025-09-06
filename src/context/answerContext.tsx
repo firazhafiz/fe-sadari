@@ -1,14 +1,19 @@
 "use client";
 import { createContext, useContext, useState, ReactNode } from "react";
-import { FormAnswer } from "@/types";
+import { FormAnswer, CreateAnswerRequest, ApiResponse, CreateAnswerResponse } from "@/types";
 
 type AnswerContextType = {
   // User data
   formAnswer: FormAnswer | null;
   setFormAnswer: (formAnswer: FormAnswer | null) => void;
+  submittedUserId: number | null;
+  setSubmittedUserId: (userId: number | null) => void;
 
   saveAnswer: (questionId: number, answer: string, score: number) => void;
   getAnswer: (questionId: number) => string | null;
+
+  // Submit answers to API
+  submitAnswers: () => Promise<{ success: boolean; data?: CreateAnswerResponse; error?: string }>;
 
   // Exit confirmation
   showExitModal: boolean;
@@ -32,6 +37,7 @@ export const useAnswerContext = () => {
 
 export const AnswerProvider = ({ children }: { children: ReactNode }) => {
   const [formAnswer, setFormAnswer] = useState<FormAnswer | null>(null);
+  const [submittedUserId, setSubmittedUserId] = useState<number | null>(null);
   const [showExitModal, setShowExitModal] = useState(false);
 
   const saveAnswer = (questionId: number, answer: string, score: number) => {
@@ -70,8 +76,66 @@ export const AnswerProvider = ({ children }: { children: ReactNode }) => {
     return null;
   };
 
+  const submitAnswers = async (): Promise<{ success: boolean; data?: CreateAnswerResponse; error?: string }> => {
+    if (!formAnswer || !formAnswer.user || formAnswer.answers.length === 0) {
+      return {
+        success: false,
+        error: "No answers to submit",
+      };
+    }
+
+    try {
+      const requestData: CreateAnswerRequest = {
+        user: {
+          nama: formAnswer.user.nama,
+          alamat: formAnswer.user.alamat,
+          tanggal_lahir: formAnswer.user.tanggal_lahir,
+          no_hp: formAnswer.user.no_hp,
+        },
+        hasil_persen: formAnswer.hasil_persen,
+        details: formAnswer.answers.map((answer) => ({
+          soalId: answer.soalId,
+          jawaban: answer.jawaban,
+          score: answer.score,
+        })),
+      };
+
+      const response = await fetch("/api/answers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      });
+
+      const result: ApiResponse<CreateAnswerResponse> = await response.json();
+
+      if (result.success && result.data) {
+        // Store the submitted user ID and clear form data
+        setSubmittedUserId(result.data.user.id || null);
+        setFormAnswer(null);
+        return {
+          success: true,
+          data: result.data,
+        };
+      } else {
+        return {
+          success: false,
+          error: result.error || "Failed to submit answers",
+        };
+      }
+    } catch (error) {
+      console.error("Error submitting answers:", error);
+      return {
+        success: false,
+        error: "Network error occurred",
+      };
+    }
+  };
+
   const clearAllData = () => {
     setFormAnswer(null);
+    setSubmittedUserId(null);
   };
 
   const confirmExit = () => {
@@ -89,6 +153,9 @@ export const AnswerProvider = ({ children }: { children: ReactNode }) => {
     getAnswer,
     saveAnswer,
     setFormAnswer,
+    submittedUserId,
+    setSubmittedUserId,
+    submitAnswers,
     showExitModal,
     setShowExitModal,
     confirmExit,

@@ -14,15 +14,26 @@ model User {
   alamat        String?
   tanggal_lahir DateTime?
   no_hp         String?
+  created_at    DateTime? @default(now())
+  updated_at    DateTime? @updatedAt
   answers       Answer[]
+
+  @@index([no_hp])
+  @@index([created_at])
 }
 
 model Answer {
   id           Int            @id @default(autoincrement())
   hasil_persen Float
   userId       Int
+  created_at   DateTime?      @default(now())
+  updated_at   DateTime?      @updatedAt
   user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   details      AnswerDetail[]
+
+  @@index([userId])
+  @@index([hasil_persen])
+  @@index([created_at])
 }
 
 model AnswerDetail {
@@ -32,4 +43,8 @@ model AnswerDetail {
   jawaban  String
   score    Int
   answer   Answer @relation(fields: [answerId], references: [id], onDelete: Cascade)
+
+  @@index([answerId])
+  @@index([soalId])
+  @@unique([answerId, soalId])
 }

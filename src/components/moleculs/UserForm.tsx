@@ -44,7 +44,7 @@ export default function UserForm({ onComplete }: { onComplete: () => void }) {
             required
             value={formData.nama}
             onChange={(e) => setFormData((prev) => ({ ...prev, nama: e.target.value }))}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 placeholder:text-slate-300 focus:text-slate-400"
             placeholder="Masukkan nama lengkap"
           />
         </div>
@@ -57,7 +57,7 @@ export default function UserForm({ onComplete }: { onComplete: () => void }) {
             id="alamat"
             value={formData.alamat}
             onChange={(e) => setFormData((prev) => ({ ...prev, alamat: e.target.value }))}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 placeholder:text-slate-300 focus:text-slate-400"
             placeholder="Masukkan alamat lengkap"
             rows={3}
           />
@@ -72,7 +72,7 @@ export default function UserForm({ onComplete }: { onComplete: () => void }) {
             id="tanggal_lahir"
             value={formData.tanggal_lahir}
             onChange={(e) => setFormData((prev) => ({ ...prev, tanggal_lahir: e.target.value }))}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 placeholder:text-slate-300 focus:text-slate-400"
           />
         </div>
 
@@ -85,7 +85,7 @@ export default function UserForm({ onComplete }: { onComplete: () => void }) {
             id="no_hp"
             value={formData.no_hp}
             onChange={(e) => setFormData((prev) => ({ ...prev, no_hp: e.target.value }))}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 placeholder:text-slate-300 focus:text-slate-400"
             placeholder="08xxxxxxxxxx"
           />
         </div>

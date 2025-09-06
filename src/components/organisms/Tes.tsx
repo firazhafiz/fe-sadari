@@ -34,10 +34,8 @@ export default function Tes({ mobileTitleClass = "text-2xl", mobileTitleMaxWClas
             <li>Hasil tes bisa kamu dapatkan setelah mengisi semua pertanyaan dengan lengkap.</li>
           </ul>
         </div>
-        <div className="mt-6">
-          <TesForm />
-        </div>
-        <div className="mt-6">
+
+        <div className="mt-8">
           <Link href="/tes-hipertensi/start" className="px-6 py-3 rounded-sm bg-navy text-white text-sm md:text-base font-semibold hover:bg-[#053b59] transition-colors">
             Mulai Tes
           </Link>
