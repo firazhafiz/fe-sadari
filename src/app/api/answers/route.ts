@@ -97,39 +97,19 @@ export async function POST(req: Request) {
       );
     }
 
-    // Check if user already exists by phone number (if provided)
-    let existingUser = null;
-    if (body.user.no_hp) {
-      existingUser = await prisma.user.findFirst({
-        where: {
-          no_hp: body.user.no_hp,
-        },
-        select: {
-          id: true,
-        },
-      });
-    }
-
-    let userId: number;
-
-    if (existingUser) {
-      // Use existing user
-      userId = existingUser.id;
-    } else {
-      // Create new user
-      const newUser = await prisma.user.create({
-        data: {
-          nama: body.user.nama,
-          alamat: body.user.alamat,
-          tanggal_lahir: body.user.tanggal_lahir ? new Date(body.user.tanggal_lahir) : null,
-          no_hp: body.user.no_hp,
-        },
-        select: {
-          id: true,
-        },
-      });
-      userId = newUser.id;
-    }
+    // Create new user
+    const newUser = await prisma.user.create({
+      data: {
+        nama: body.user.nama,
+        alamat: body.user.alamat,
+        tanggal_lahir: body.user.tanggal_lahir ? new Date(body.user.tanggal_lahir) : null,
+        no_hp: body.user.no_hp,
+      },
+      select: {
+        id: true,
+      },
+    });
+    const userId = newUser.id;
 
     // Create answer with details in a single transaction
     const result = await prisma.$transaction(async (tx) => {
