@@ -85,6 +85,11 @@ export const AnswerProvider = ({ children }: { children: ReactNode }) => {
     }
 
     try {
+      // Calculate the actual percentage based on total score
+      const totalScore = formAnswer.answers.reduce((total, answer) => total + answer.score, 0);
+      const maxPossibleScore = 120; // Maximum possible score from all questions
+      const calculatedPercentage = Math.min((totalScore / maxPossibleScore) * 100, 100);
+
       const requestData: CreateAnswerRequest = {
         user: {
           nama: formAnswer.user.nama,
@@ -92,7 +97,7 @@ export const AnswerProvider = ({ children }: { children: ReactNode }) => {
           tanggal_lahir: formAnswer.user.tanggal_lahir,
           no_hp: formAnswer.user.no_hp,
         },
-        hasil_persen: formAnswer.hasil_persen,
+        hasil_persen: calculatedPercentage,
         details: formAnswer.answers.map((answer) => ({
           soalId: answer.soalId,
           jawaban: answer.jawaban,
@@ -102,6 +107,9 @@ export const AnswerProvider = ({ children }: { children: ReactNode }) => {
 
       console.log("Submitting data:", {
         user: requestData.user,
+        totalScore: totalScore,
+        maxPossibleScore: maxPossibleScore,
+        calculatedPercentage: calculatedPercentage,
         hasil_persen: requestData.hasil_persen,
         detailsCount: requestData.details.length,
         firstDetail: requestData.details[0],

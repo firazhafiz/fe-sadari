@@ -86,6 +86,14 @@ export async function POST(req: Request) {
   try {
     const body: CreateAnswerRequest = await req.json();
 
+    console.log("API received request:", {
+      hasUser: !!body.user,
+      hasDetails: !!body.details,
+      detailsLength: body.details?.length,
+      hasil_persen: body.hasil_persen,
+      userNama: body.user?.nama,
+    });
+
     // Validate required fields
     if (!body.user?.nama || !body.details || body.details.length === 0) {
       return NextResponse.json<ApiResponse<null>>(
@@ -111,6 +119,13 @@ export async function POST(req: Request) {
     // Create new user
     let newUser;
     try {
+      console.log("Creating user with data:", {
+        nama: body.user.nama,
+        alamat: body.user.alamat,
+        tanggal_lahir: body.user.tanggal_lahir,
+        no_hp: body.user.no_hp,
+      });
+
       newUser = await prisma.user.create({
         data: {
           nama: body.user.nama,
@@ -122,18 +137,28 @@ export async function POST(req: Request) {
           id: true,
         },
       });
+
+      console.log("User created successfully:", newUser);
     } catch (userError) {
       console.error("Error creating user:", userError);
       throw new Error(`Failed to create user: ${userError instanceof Error ? userError.message : "Unknown error"}`);
     }
 
     const userId = newUser.id;
+    console.log("Using userId:", userId);
 
     // Create answer with details in a single transaction
     let result;
     try {
+      console.log("Starting transaction with:", {
+        hasil_persen: body.hasil_persen,
+        userId: userId,
+        detailsCount: body.details.length,
+      });
+
       result = await prisma.$transaction(async (tx) => {
         // Create the answer
+        console.log("Creating answer...");
         const answer = await tx.answer.create({
           data: {
             hasil_persen: body.hasil_persen,
@@ -141,15 +166,24 @@ export async function POST(req: Request) {
           },
         });
 
+        console.log("Answer created:", answer);
+
         // Create answer details in batch
+        console.log("Creating answer details...");
+        const detailsData = body.details.map((detail) => ({
+          answerId: answer.id,
+          soalId: detail.soalId,
+          jawaban: detail.jawaban,
+          score: detail.score,
+        }));
+
+        console.log("Details data:", detailsData.slice(0, 2)); // Log first 2 details
+
         await tx.answerDetail.createMany({
-          data: body.details.map((detail) => ({
-            answerId: answer.id,
-            soalId: detail.soalId,
-            jawaban: detail.jawaban,
-            score: detail.score,
-          })),
+          data: detailsData,
         });
+
+        console.log("Answer details created successfully");
 
         // Fetch the complete result
         const completeAnswer = await tx.answer.findUnique({
