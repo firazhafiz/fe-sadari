@@ -97,63 +97,87 @@ export async function POST(req: Request) {
       );
     }
 
+    // Validate hasil_persen
+    if (typeof body.hasil_persen !== "number" || body.hasil_persen < 0 || body.hasil_persen > 100) {
+      return NextResponse.json<ApiResponse<null>>(
+        {
+          success: false,
+          error: "Invalid hasil_persen: must be a number between 0 and 100",
+        },
+        { status: 400 }
+      );
+    }
+
     // Create new user
-    const newUser = await prisma.user.create({
-      data: {
-        nama: body.user.nama,
-        alamat: body.user.alamat,
-        tanggal_lahir: body.user.tanggal_lahir ? new Date(body.user.tanggal_lahir) : null,
-        no_hp: body.user.no_hp,
-      },
-      select: {
-        id: true,
-      },
-    });
+    let newUser;
+    try {
+      newUser = await prisma.user.create({
+        data: {
+          nama: body.user.nama,
+          alamat: body.user.alamat,
+          tanggal_lahir: body.user.tanggal_lahir ? new Date(body.user.tanggal_lahir) : null,
+          no_hp: body.user.no_hp,
+        },
+        select: {
+          id: true,
+        },
+      });
+    } catch (userError) {
+      console.error("Error creating user:", userError);
+      throw new Error(`Failed to create user: ${userError instanceof Error ? userError.message : "Unknown error"}`);
+    }
+
     const userId = newUser.id;
 
     // Create answer with details in a single transaction
-    const result = await prisma.$transaction(async (tx) => {
-      // Create the answer
-      const answer = await tx.answer.create({
-        data: {
-          hasil_persen: body.hasil_persen,
-          userId: userId,
-        },
-      });
+    let result;
+    try {
+      result = await prisma.$transaction(async (tx) => {
+        // Create the answer
+        const answer = await tx.answer.create({
+          data: {
+            hasil_persen: body.hasil_persen,
+            userId: userId,
+          },
+        });
 
-      // Create answer details in batch
-      await tx.answerDetail.createMany({
-        data: body.details.map((detail) => ({
-          answerId: answer.id,
-          soalId: detail.soalId,
-          jawaban: detail.jawaban,
-          score: detail.score,
-        })),
-      });
+        // Create answer details in batch
+        await tx.answerDetail.createMany({
+          data: body.details.map((detail) => ({
+            answerId: answer.id,
+            soalId: detail.soalId,
+            jawaban: detail.jawaban,
+            score: detail.score,
+          })),
+        });
 
-      // Fetch the complete result
-      const completeAnswer = await tx.answer.findUnique({
-        where: { id: answer.id },
-        include: {
-          user: {
-            select: {
-              id: true,
-              nama: true,
-              alamat: true,
-              tanggal_lahir: true,
-              no_hp: true,
+        // Fetch the complete result
+        const completeAnswer = await tx.answer.findUnique({
+          where: { id: answer.id },
+          include: {
+            user: {
+              select: {
+                id: true,
+                nama: true,
+                alamat: true,
+                tanggal_lahir: true,
+                no_hp: true,
+              },
+            },
+            details: {
+              orderBy: {
+                soalId: "asc",
+              },
             },
           },
-          details: {
-            orderBy: {
-              soalId: "asc",
-            },
-          },
-        },
-      });
+        });
 
-      return completeAnswer;
-    });
+        return completeAnswer;
+      });
+    } catch (transactionError) {
+      console.error("Error in transaction:", transactionError);
+      throw new Error(`Failed to create answer: ${transactionError instanceof Error ? transactionError.message : "Unknown error"}`);
+    }
 
     if (!result) {
       throw new Error("Failed to create answer");
@@ -161,13 +185,13 @@ export async function POST(req: Request) {
 
     const response: CreateAnswerResponse = {
       user: {
+        id: result.user.id,
         nama: result.user.nama,
         alamat: result.user.alamat || undefined,
         tanggal_lahir: result.user.tanggal_lahir?.toISOString(),
         no_hp: result.user.no_hp || undefined,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
-        id: result.user.id,
       },
       answer: {
         id: result.id,
@@ -188,6 +212,11 @@ export async function POST(req: Request) {
     );
   } catch (error) {
     console.error("POST /api/answers error:", error);
+    console.error("Error details:", {
+      message: error instanceof Error ? error.message : "Unknown error",
+      stack: error instanceof Error ? error.stack : undefined,
+      name: error instanceof Error ? error.name : undefined,
+    });
 
     // Handle specific Prisma errors
     if (error instanceof Error) {
@@ -200,12 +229,23 @@ export async function POST(req: Request) {
           { status: 409 }
         );
       }
+
+      if (error.message.includes("Foreign key constraint")) {
+        return NextResponse.json<ApiResponse<null>>(
+          {
+            success: false,
+            error: "Invalid user reference",
+          },
+          { status: 400 }
+        );
+      }
     }
 
     return NextResponse.json<ApiResponse<null>>(
       {
         success: false,
         error: "Failed to create answer",
+        message: error instanceof Error ? error.message : "Unknown error occurred",
       },
       { status: 500 }
     );

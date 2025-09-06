@@ -100,6 +100,13 @@ export const AnswerProvider = ({ children }: { children: ReactNode }) => {
         })),
       };
 
+      console.log("Submitting data:", {
+        user: requestData.user,
+        hasil_persen: requestData.hasil_persen,
+        detailsCount: requestData.details.length,
+        firstDetail: requestData.details[0],
+      });
+
       const response = await fetch("/api/answers", {
         method: "POST",
         headers: {
@@ -110,6 +117,13 @@ export const AnswerProvider = ({ children }: { children: ReactNode }) => {
 
       const result: ApiResponse<CreateAnswerResponse> = await response.json();
 
+      console.log("API Response:", {
+        status: response.status,
+        success: result.success,
+        hasData: !!result.data,
+        error: result.error,
+      });
+
       if (result.success && result.data) {
         // Store the submitted user ID and clear form data
         setSubmittedUserId(result.data.user.id || null);
@@ -119,6 +133,7 @@ export const AnswerProvider = ({ children }: { children: ReactNode }) => {
           data: result.data,
         };
       } else {
+        console.error("API Error:", result.error);
         return {
           success: false,
           error: result.error || "Failed to submit answers",
