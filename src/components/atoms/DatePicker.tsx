@@ -45,16 +45,14 @@ export function Calendar28({
   const [value, setValue] = React.useState("");
 
   return (
-    <div className="flex flex-col gap-2 w-full">
-      <Label htmlFor="date" className="px-1">
-        {label}
-      </Label>
+    <div className="flex flex-col gap-3 w-full">
+      <Label htmlFor="date">{label}</Label>
       <div className="relative flex gap-2 w-full">
         <Input
           id="date"
           value={value}
           placeholder={placeholder}
-          className="w-full bg-white text-slate-900 pr-10"
+          className="w-full bg-white text-slate-800"
           onChange={(e) => {
             const date = new Date(e.target.value);
             setValue(e.target.value);
