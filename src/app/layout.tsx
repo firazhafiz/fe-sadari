@@ -22,6 +22,9 @@ const delius = Delius({
 export const metadata: Metadata = {
   title: "SADARI 4LIFE - Tes Screening Hipertensi",
   description: "Tes screening hipertensi untuk kesehatan yang lebih baik",
+  icons: {
+    icon: [{ url: "/icons/logo-sadari.svg", type: "image/svg+xml" }],
+  },
 };
 
 export default function RootLayout({
@@ -30,7 +33,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${poppins.variable} ${delius.variable} antialiased`}>
+    <html
+      lang="en"
+      className={`${poppins.variable} ${delius.variable} antialiased`}
+    >
       <body>
         <AnswerProvider>{children}</AnswerProvider>
       </body>
