@@ -57,8 +57,10 @@ export default function Result() {
 
     const latestAnswer = userData.answers[0];
     const totalScore = latestAnswer.details.reduce((total, detail) => total + detail.score, 0);
-    const maxPossibleScore = 120;
+    console.log(totalScore);
+    const maxPossibleScore = 110;
     const percentage = Math.min((totalScore / maxPossibleScore) * 100, 100);
+    console.log(percentage);
 
     // Determine result category based on percentage
     const getResultCategory = (percentage: number) => {
