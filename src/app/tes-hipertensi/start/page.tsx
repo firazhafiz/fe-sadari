@@ -201,7 +201,7 @@ export default function Start() {
             <button
               onClick={handleNext}
               disabled={!isCurrentQuestionAnswered()}
-              className={`rounded-full p-2 transition-all duration-200 ${!isCurrentQuestionAnswered() ? "bg-gray-300 cursor-not-allowed opacity-50" : "bg-navy cursor-pointer hover:bg-blue-800"}`}
+              className={`rounded-full p-2 transition-all duration-200 ${!isCurrentQuestionAnswered() ? "bg-gray-300 cursor-not-allowed opacity-50" : "bg-navy cursor-pointer hover:bg-blue-950"}`}
               title="Lanjut">
               <Image src="/assets/button_arrow.png" alt="next" width={30} height={30} className="h-6 sm:h-8 w-auto" />
             </button>

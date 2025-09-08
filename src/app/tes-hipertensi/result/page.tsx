@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useAnswerContext } from "@/context/answerContext";
 import { hasilHipertensi } from "@/data/hasil";
 import { useRouter } from "next/navigation";
+import { Answer } from "@/types";
 
 type UserData = {
   id: number;
@@ -12,20 +13,7 @@ type UserData = {
   alamat: string | null;
   tanggal_lahir: Date | null;
   no_hp: string | null;
-  answers: Array<{
-    id: number;
-    hasil_persen: number;
-    userId: number;
-    created_at: Date | null;
-    updated_at: Date | null;
-    details: Array<{
-      id: number;
-      answerId: number;
-      soalId: number;
-      jawaban: string;
-      score: number;
-    }>;
-  }>;
+  answers: Answer[];
 };
 
 export default function Result() {
@@ -268,10 +256,10 @@ export default function Result() {
                     clearAllData();
                     router.push("/tes-hipertensi/start");
                   }}
-                  className="px-8 py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105">
+                  className="px-8 cursor-pointer py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105">
                   Tes Ulang
                 </button>
-                <button onClick={() => window.print()} className="px-8 py-3 border-2 border-green-500 text-green-600 font-semibold rounded-xl hover:bg-green-50 transition-all duration-300">
+                <button onClick={() => window.print()} className="px-8 cursor-pointer py-3 border-2 border-green-500 text-green-600 font-semibold rounded-xl hover:bg-green-50 transition-all duration-300">
                   Cetak Hasil
                 </button>
                 <button
@@ -279,7 +267,7 @@ export default function Result() {
                     clearAllData();
                     router.push("/");
                   }}
-                  className="px-8 py-3 border-2 border-gray-300 text-gray-600 font-semibold rounded-xl hover:bg-gray-50 transition-all duration-300">
+                  className="px-8 cursor-pointer py-3 border-2 border-gray-300 text-gray-600 font-semibold rounded-xl hover:bg-gray-50 transition-all duration-300">
                   Beranda
                 </button>
               </div>

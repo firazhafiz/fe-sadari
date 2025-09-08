@@ -39,22 +39,17 @@ export default function UserForm({ onComplete }: { onComplete: () => void }) {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid w-full md:max-w-none items-center gap-3">
           <Label htmlFor="name">Nama Lengkap</Label>
-          <Input type="input" id="name" placeholder="Masukkan Nama Anda" />
+          <Input onChange={(e) => setFormData({ ...formData, nama: e.target.value })} type="input" id="name" placeholder="Masukkan Nama Anda" />
         </div>
 
         <div>
-          <label
-            htmlFor="alamat"
-            className="block text-sm font-medium text-gray-700 mb-2"
-          >
+          <label htmlFor="alamat" className="block text-sm font-medium text-gray-700 mb-2">
             Alamat
           </label>
           <textarea
             id="alamat"
             value={formData.alamat}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, alamat: e.target.value }))
-            }
+            onChange={(e) => setFormData((prev) => ({ ...prev, alamat: e.target.value }))}
             className="w-full px-3 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-[1px] focus:ring-navy/80 placeholder:text-gray-400 placeholder:text-sm text-sm text-slate-800"
             placeholder="Masukkan Alamat Lengkap"
             rows={3}
@@ -62,18 +57,26 @@ export default function UserForm({ onComplete }: { onComplete: () => void }) {
         </div>
 
         <div className="grid w-full md:max-w-none items-center gap-2">
-          <Calendar28 label="Tanggal Lahir" />
+          {/* <Calendar28 onChange={(e) => setFormData((prev) => ({ ...prev, tanggal_lahir: e.target.value }))} label="Tanggal Lahir" /> */}
+          <label htmlFor="tanggal_lahir" className="block text-sm font-medium text-gray-700 mb-2">
+            Tanggal Lahir
+          </label>
+          <input
+            type="date"
+            id="tanggal_lahir"
+            value={formData.tanggal_lahir}
+            onChange={(e) => setFormData((prev) => ({ ...prev, tanggal_lahir: e.target.value }))}
+            className="w-full px-3 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-[1px] focus:ring-navy/80 placeholder:text-gray-400 placeholder:text-sm text-sm text-slate-800"
+            placeholder="Pilih tanggal lahir"
+          />
         </div>
 
         <div className="grid w-full md:max-w-none items-center gap-3">
           <Label htmlFor="phone">No Handphone</Label>
-          <Input type="text" id="phone" placeholder="628xxxxxxxxx" />
+          <Input type="text" onChange={(e) => setFormData((prev) => ({ ...prev, no_hp: e.target.value }))} id="phone" placeholder="628xxxxxxxxx" />
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-[#F3D457] text-slate-700 py-2 px-4 rounded-sm hover:-translate-y-0.5 hover:shadow-lg cursor-pointer transition-all font-semibold mt-2"
-        >
+        <button type="submit" className="w-full bg-[#F3D457] text-slate-700 py-2 px-4 rounded-sm hover:-translate-y-0.5 hover:shadow-lg cursor-pointer transition-all font-semibold mt-2">
           Mulai Tes
         </button>
       </form>

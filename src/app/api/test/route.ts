@@ -5,8 +5,6 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    console.log("Test API received:", body);
-
     // Test user creation
     const testUser = await prisma.user.create({
       data: {
@@ -20,7 +18,6 @@ export async function POST(req: Request) {
       },
     });
 
-    console.log("Test user created:", testUser);
 
     // Test answer creation
     const testAnswer = await prisma.answer.create({
@@ -35,8 +32,6 @@ export async function POST(req: Request) {
       },
     });
 
-    console.log("Test answer created:", testAnswer);
-
     // Test answer detail creation
     const testDetail = await prisma.answerDetail.create({
       data: {
@@ -46,8 +41,6 @@ export async function POST(req: Request) {
         score: 5,
       },
     });
-
-    console.log("Test detail created:", testDetail);
 
     // Clean up test data
     await prisma.answerDetail.delete({ where: { id: testDetail.id } });
