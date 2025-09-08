@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Gejala() {
   return (
-    <div className="lg:min-h-screen pt-30 pb-20">
+    <div className="lg:min-h-screen pt-30 pb-8">
       <div className="flex flex-col justify-center items-center">
         <div className="text-center max-w-4xl">
           <p className="text-base md:text-lg text-gray-600 tracking-wide">

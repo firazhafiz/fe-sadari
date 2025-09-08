@@ -61,12 +61,12 @@ export default function Tips() {
           {steps.map((step, idx) => (
             <div
               key={idx}
-              className="flex items-center gap-4 bg-white rounded-full px-6 py-4 shadow-md text-lg font-medium"
+              className="flex items-center gap-4 bg-white rounded-full px-6 py-4 shadow-md font-medium"
             >
-              <span className="w-8 h-8 flex items-center justify-center rounded-full bg-navy text-white font-bold text-lg">
+              <span className="w-8 h-8 flex items-center justify-center rounded-full bg-navy text-white font-bold md:text-lg text-base">
                 {idx + 1}
               </span>
-              <span className="text-black/90 font-medium text-base md:text-lg">
+              <span className="text-black/90 font-medium text-xs md:text-lg">
                 {step}
               </span>
             </div>
