@@ -6,6 +6,7 @@ import { useAnswerContext } from "@/context/answerContext";
 import { hasilHipertensi } from "@/data/hasil";
 import { useRouter } from "next/navigation";
 import { Answer } from "@/types";
+import { TbHomeMove } from "react-icons/tb";
 
 type UserData = {
   id: number;
@@ -57,10 +58,9 @@ export default function Result() {
 
     const latestAnswer = userData.answers[0];
     const totalScore = latestAnswer.details.reduce((total, detail) => total + detail.score, 0);
-    console.log(totalScore);
     const maxPossibleScore = 110;
+
     const percentage = Math.min((totalScore / maxPossibleScore) * 100, 100);
-    console.log(percentage);
 
     // Determine result category based on percentage
     const getResultCategory = (percentage: number) => {
@@ -111,7 +111,7 @@ export default function Result() {
     );
   }
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-teal-50">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-blue-50 to-teal-50">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
@@ -149,15 +149,27 @@ export default function Result() {
                   <div className="relative  rounded-2xl p-8 text-center group -xl transition-all duration-300">
                     <div className="absolute inset-0 bg-gradient-to-br from-green-400/10 to-emerald-400/10 rounded-2xl opacity-0 transition-opacity"></div>
                     <div className="relative">
-                      <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg" style={{ background: `linear-gradient(135deg, ${result.resultCategory.warna}, ${result.resultCategory.warna}dd)` }}>
+                      <div
+                        className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg"
+                        style={{
+                          background: `linear-gradient(135deg, ${result.resultCategory.warna}, ${result.resultCategory.warna}dd)`,
+                        }}>
                         <Shield className="w-10 h-10 text-white" />
                       </div>
                       <h3 className="text-lg font-semibold text-gray-700 mb-2">Status Kesehatan</h3>
                       <p className="text-4xl sm:text-5xl font-bold mb-2" style={{ color: result.resultCategory.warna }}>
                         {Math.round(result.percentage)}%
                       </p>
-                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full" style={{ backgroundColor: `${result.resultCategory.warna}20` }}>
-                        <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: result.resultCategory.warna }}></div>
+                      <div
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full"
+                        style={{
+                          backgroundColor: `${result.resultCategory.warna}20`,
+                        }}>
+                        <div
+                          className="w-2 h-2 rounded-full animate-pulse"
+                          style={{
+                            backgroundColor: result.resultCategory.warna,
+                          }}></div>
                         <span className="font-medium" style={{ color: result.resultCategory.warna }}>
                           {result.resultCategory.kategori}
                         </span>
@@ -258,10 +270,10 @@ export default function Result() {
                     clearAllData();
                     router.push("/tes-hipertensi/start");
                   }}
-                  className="px-8 cursor-pointer py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105">
+                  className="px-8 cursor-pointer py-3 bg-gradient-to-br from-teal-400 to-teal-600 text-white font-semibold rounded-md transition-all duration-300 hover:scale-105">
                   Tes Ulang
                 </button>
-                <button onClick={() => window.print()} className="px-8 cursor-pointer py-3 border-2 border-green-500 text-green-600 font-semibold rounded-xl hover:bg-green-50 transition-all duration-300">
+                <button onClick={() => window.print()} className="px-8 cursor-pointer py-3 border-2 border-teal-600 text-teal-600 font-semibold rounded-md hover:bg-teal-200/20 transition-all duration-300">
                   Cetak Hasil
                 </button>
                 <button
@@ -269,7 +281,8 @@ export default function Result() {
                     clearAllData();
                     router.push("/");
                   }}
-                  className="px-8 cursor-pointer py-3 border-2 border-gray-300 text-gray-600 font-semibold rounded-xl hover:bg-gray-50 transition-all duration-300">
+                  className="px-8 flex justify-center items-center gap-2 cursor-pointer py-3 border-2 border-gray-300 text-gray-600 font-semibold rounded-md hover:bg-gray-50 transition-all duration-300">
+                  <TbHomeMove className="text-lg" />
                   Beranda
                 </button>
               </div>
