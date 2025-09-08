@@ -87,7 +87,7 @@ export const AnswerProvider = ({ children }: { children: ReactNode }) => {
     try {
       // Calculate the actual percentage based on total score
       const totalScore = formAnswer.answers.reduce((total, answer) => total + answer.score, 0);
-      const maxPossibleScore = 120; // Maximum possible score from all questions
+      const maxPossibleScore = 110; // Maximum possible score from all questions
       const calculatedPercentage = Math.min((totalScore / maxPossibleScore) * 100, 100);
 
       const requestData: CreateAnswerRequest = {
