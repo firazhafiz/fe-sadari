@@ -7,7 +7,8 @@ export const soalHipertensi = [
       { text: "40–59 tahun", score: 2 },
       { text: "60 tahun ke atas", score: 5 },
     ],
-    rasional: "Risiko hipertensi meningkat seiring bertambahnya usia karena elastisitas pembuluh darah menurun. Semakin tua, semakin tinggi skor",
+    rasional:
+      "Risiko hipertensi meningkat seiring bertambahnya usia karena elastisitas pembuluh darah menurun. Semakin tua, semakin tinggi skor",
   },
   {
     id: 2,
@@ -17,17 +18,19 @@ export const soalHipertensi = [
       { text: "Tidak tahu", score: 2 },
       { text: "Ada", score: 6 },
     ],
-    rasional: "Faktor genetik berperan besar dalam hipertensi. Jika orang tua atau saudara memiliki hipertensi, risiko meningkat. Tidak tahu diberi skor 2 karena ketidakpastian tetap berisiko",
+    rasional:
+      "Faktor genetik berperan besar dalam hipertensi. Jika orang tua atau saudara memiliki hipertensi, risiko meningkat. Tidak tahu diberi skor 2 karena ketidakpastian tetap berisiko",
   },
   {
     id: 3,
     soal: "Apakah Anda merokok saat ini atau pernah merokok?",
     pilihan: [
       { text: "Tidak pernah", score: 0 },
-      { text: "Pernah merokok/sudah berhenti", score: 2 },
+      { text: "Pernah/sudah berhenti", score: 2 },
       { text: "Masih merokok", score: 5 },
     ],
-    rasional: "Merokok merusak dinding pembuluh darah dan meningkatkan tekanan darah. Mantan perokok tetap berisiko, tapi lebih rendah dari perokok aktif",
+    rasional:
+      "Merokok merusak dinding pembuluh darah dan meningkatkan tekanan darah. Mantan perokok tetap berisiko, tapi lebih rendah dari perokok aktif",
   },
   {
     id: 4,
@@ -38,7 +41,8 @@ export const soalHipertensi = [
       { text: "Sering", score: 4 },
       { text: "Setiap hari", score: 6 },
     ],
-    rasional: "Garam berlebih menyebabkan retensi cairan dan meningkatkan tekanan darah. Frekuensi konsumsi menentukan skor",
+    rasional:
+      "Garam berlebih menyebabkan retensi cairan dan meningkatkan tekanan darah. Frekuensi konsumsi menentukan skor",
   },
   {
     id: 5,
@@ -48,7 +52,8 @@ export const soalHipertensi = [
       { text: "Kadang-kadang", score: 2 },
       { text: "Tidak pernah", score: 4 },
     ],
-    rasional: "Aktivitas fisik membantu menjaga tekanan darah tetap normal. Tidak olahraga meningkatkan risiko",
+    rasional:
+      "Aktivitas fisik membantu menjaga tekanan darah tetap normal. Tidak olahraga meningkatkan risiko",
   },
   {
     id: 6,
@@ -58,7 +63,8 @@ export const soalHipertensi = [
       { text: "Kadang-kadang", score: 3 },
       { text: "Sering", score: 6 },
     ],
-    rasional: "Stres kronis meningkatkan hormon kortisol dan adrenalin, yang dapat menaikkan tekanan darah. Semakin sering stres, semakin tinggi skor",
+    rasional:
+      "Stres kronis meningkatkan hormon kortisol dan adrenalin, yang dapat menaikkan tekanan darah. Semakin sering stres, semakin tinggi skor",
   },
   {
     id: 7,
@@ -69,7 +75,8 @@ export const soalHipertensi = [
       { text: "Tinggi", score: 4 },
       { text: "Sangat tinggi", score: 6 },
     ],
-    rasional: "Data objektif yang langsung menunjukkan status tekanan darah. Semakin tinggi tekanan, semakin besar skor",
+    rasional:
+      "Data objektif yang langsung menunjukkan status tekanan darah. Semakin tinggi tekanan, semakin besar skor",
   },
   {
     id: 8,
@@ -79,7 +86,8 @@ export const soalHipertensi = [
       { text: "Ya, satu penyakit", score: 4 },
       { text: "Ya, lebih dari satu", score: 6 },
     ],
-    rasional: "Komorbiditas seperti diabetes dan penyakit ginjal memperburuk kontrol tekanan darah. Semakin banyak penyakit, semakin tinggi risiko",
+    rasional:
+      "Komorbiditas seperti diabetes dan penyakit ginjal memperburuk kontrol tekanan darah. Semakin banyak penyakit, semakin tinggi risiko",
   },
   {
     id: 9,
@@ -89,7 +97,8 @@ export const soalHipertensi = [
       { text: "Kadang-kadang", score: 3 },
       { text: "Sering", score: 6 },
     ],
-    rasional: "Gejala ini bisa menjadi tanda hipertensi yang tidak terkontrol. Frekuensi gejala menentukan skor",
+    rasional:
+      "Gejala ini bisa menjadi tanda hipertensi yang tidak terkontrol. Frekuensi gejala menentukan skor",
   },
   {
     id: 10,
@@ -99,7 +108,8 @@ export const soalHipertensi = [
       { text: "Kadang-kadang", score: 3 },
       { text: "Sering", score: 5 },
     ],
-    rasional: "Bisa menunjukkan gangguan ginjal atau jantung, yang berkaitan dengan hipertensi. Semakin sering, semakin tinggi skor",
+    rasional:
+      "Bisa menunjukkan gangguan ginjal atau jantung, yang berkaitan dengan hipertensi. Semakin sering, semakin tinggi skor",
   },
   {
     id: 11,
@@ -109,7 +119,8 @@ export const soalHipertensi = [
       { text: "Kadang-kadang", score: 2 },
       { text: "Sering", score: 6 },
     ],
-    rasional: "Tanda kemungkinan gangguan jantung akibat hipertensi. Gejala ringan diberi skor rendah, gejala berat lebih tinggi",
+    rasional:
+      "Tanda kemungkinan gangguan jantung akibat hipertensi. Gejala ringan diberi skor rendah, gejala berat lebih tinggi",
   },
   {
     id: 12,
@@ -119,7 +130,8 @@ export const soalHipertensi = [
       { text: "Kadang lupa", score: 2 },
       { text: "Tidak minum obat", score: 5 },
     ],
-    rasional: "Kepatuhan rendah meningkatkan risiko komplikasi hipertensi. Tidak minum obat = skor tertinggi",
+    rasional:
+      "Kepatuhan rendah meningkatkan risiko komplikasi hipertensi. Tidak minum obat = skor tertinggi",
   },
   {
     id: 13,
@@ -129,7 +141,8 @@ export const soalHipertensi = [
       { text: "Kadang-kadang", score: 2 },
       { text: "Sering", score: 5 },
     ],
-    rasional: "Alkohol dapat meningkatkan tekanan darah melalui stimulasi sistem saraf simpatik dan retensi cairan. Sering konsumsi = skor tinggi",
+    rasional:
+      "Alkohol dapat meningkatkan tekanan darah melalui stimulasi sistem saraf simpatik dan retensi cairan. Sering konsumsi = skor tinggi",
   },
   {
     id: 14,
@@ -139,7 +152,8 @@ export const soalHipertensi = [
       { text: "Kadang-kadang", score: 2 },
       { text: "Sering", score: 5 },
     ],
-    rasional: "Bisa menjadi tanda gagal jantung atau gangguan ginjal akibat hipertensi. Frekuensi gejala menentukan skor",
+    rasional:
+      "Bisa menjadi tanda gagal jantung atau gangguan ginjal akibat hipertensi. Frekuensi gejala menentukan skor",
   },
   {
     id: 15,
@@ -149,7 +163,8 @@ export const soalHipertensi = [
       { text: "Kadang-kadang", score: 3 },
       { text: "Sering", score: 6 },
     ],
-    rasional: "Tanda sistem kardiovaskular terganggu, bisa akibat tekanan darah tinggi. Semakin sering, semakin tinggi skor",
+    rasional:
+      "Tanda sistem kardiovaskular terganggu, bisa akibat tekanan darah tinggi. Semakin sering, semakin tinggi skor",
   },
   {
     id: 16,
@@ -159,7 +174,8 @@ export const soalHipertensi = [
       { text: "Kurang dari 6 jam", score: 2 },
       { text: "Sering terbangun malam", score: 5 },
     ],
-    rasional: "Kurang tidur meningkatkan risiko hipertensi melalui gangguan hormonal. Tidur terganggu = skor tinggi",
+    rasional:
+      "Kurang tidur meningkatkan risiko hipertensi melalui gangguan hormonal. Tidur terganggu = skor tinggi",
   },
   {
     id: 17,
@@ -180,7 +196,8 @@ export const soalHipertensi = [
       { text: "Kurang dari 6 gelas", score: 2 },
       { text: "Sering lupa minum", score: 5 },
     ],
-    rasional: "Dehidrasi bisa mempengaruhi tekanan darah dan fungsi ginjal. Kurang minum = skor tinggi",
+    rasional:
+      "Dehidrasi bisa mempengaruhi tekanan darah dan fungsi ginjal. Kurang minum = skor tinggi",
   },
   {
     id: 19,
@@ -190,7 +207,8 @@ export const soalHipertensi = [
       { text: "Kadang-kadang", score: 2 },
       { text: "Sering", score: 6 },
     ],
-    rasional: "Mobilitas rendah berhubungan dengan kurang aktivitas fisik dan risiko hipertensi. Semakin sulit bergerak, semakin tinggi skor",
+    rasional:
+      "Mobilitas rendah berhubungan dengan kurang aktivitas fisik dan risiko hipertensi. Semakin sulit bergerak, semakin tinggi skor",
   },
   {
     id: 20,
@@ -200,6 +218,7 @@ export const soalHipertensi = [
       { text: "Sekali", score: 4 },
       { text: "Lebih dari sekali", score: 6 },
     ],
-    rasional: "Menunjukkan bahwa hipertensi sudah pernah terjadi dan mungkin belum terkontrol. Semakin sering dirawat, semakin tinggi skor",
+    rasional:
+      "Menunjukkan bahwa hipertensi sudah pernah terjadi dan mungkin belum terkontrol. Semakin sering dirawat, semakin tinggi skor",
   },
 ];
