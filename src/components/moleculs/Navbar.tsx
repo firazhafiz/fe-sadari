@@ -36,12 +36,49 @@ export default function Navbar() {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { href: "#tes", label: "Tes" },
+    { href: "/tes-hipertensi", label: "Tes" },
     { href: "#tentang", label: "Tentang" },
     { href: "#gejala", label: "Gejala" },
     { href: "#tips", label: "Tips" },
     { href: "#testimonials", label: "Testimonials" },
   ];
+
+  // Smooth scroll function similar to ScrollButton
+  const smoothScrollTo = (targetId: string) => {
+    const targetElement = document.querySelector(targetId) as HTMLElement;
+    if (!targetElement) return;
+
+    const start = window.scrollY || window.pageYOffset;
+    const targetPosition = targetElement.offsetTop - 100; // Offset for navbar height
+    const distance = targetPosition - start;
+    const duration = 1200;
+    const startTime = performance.now();
+
+    const easeInOutCubic = (t: number) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    const step = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = easeInOutCubic(progress);
+      const current = start + distance * eased;
+      window.scrollTo(0, current);
+      if (progress < 1) requestAnimationFrame(step);
+    };
+
+    requestAnimationFrame(step);
+  };
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      smoothScrollTo(href);
+      setMobileMenuOpen(false); // Close mobile menu after click
+    }
+  };
 
   return (
     <>
@@ -71,6 +108,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="hover:opacity-80 transition-opacity"
               >
                 {link.label}
@@ -85,9 +123,9 @@ export default function Navbar() {
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? (
-              <HiOutlineX className="w-6 h-6" />
+              <HiOutlineX className="w-6 h-6 text-slate-700" />
             ) : (
-              <HiOutlineMenu className="w-6 h-6" />
+              <HiOutlineMenu className="w-6 h-6 text-red-slate-700" />
             )}
           </button>
         </div>
@@ -103,7 +141,7 @@ export default function Navbar() {
       >
         {/* Backdrop */}
         <div
-          className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+          className="absolute inset-0 bg-slate-800/40"
           onClick={closeMobileMenu}
         />
 
@@ -142,7 +180,10 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={closeMobileMenu}
+                onClick={(e) => {
+                  handleNavClick(e, link.href);
+                  closeMobileMenu();
+                }}
                 className={`px-6 py-4 text-lg text-slate-800 hover:bg-navy hover:text-white transition-colors border-b border-gray-50 ${
                   index === navLinks.length - 1 ? "border-b-0" : ""
                 }`}

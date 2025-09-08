@@ -21,16 +21,16 @@ export default function Home() {
       <section>
         <HeroScrollDemo />
       </section>
-      <section>
+      <section id="tentang">
         <About />
       </section>
-      <section>
+      <section id="gejala">
         <Gejala />
       </section>
-      <section className="pb-30">
+      <section id="tips" className="pb-30">
         <Tips />
       </section>
-      <section>
+      <section id="testimonials">
         <TestimoniTitle />
       </section>
       <section>

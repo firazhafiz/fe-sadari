@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const steps = [
   "Olahraga rutin 30 menit sehari.",
@@ -49,12 +50,11 @@ export default function Tips() {
           <p className="text-gray-100 font-light text-lg mb-4 text-center md:text-left">
             Cek tekanan daarahmu sekarang, untuk kesehatan di masa depan.
           </p>
-          <a
-            href="#order"
-            className="mt-2 px-8 py-3 rounded-md bg-white text-navy text-lg font-semibold shadow hover:bg-gray-100 transition-colors"
-          >
-            Tes Sekarang
-          </a>
+          <Link href="/tes-hipertensi">
+            <button className="mt-2 md:px-8 px-6 py-3 rounded-md bg-white text-navy md:text-lg text-sm font-semibold shadow hover:-translate-y-0.5 hover:bg-gray-100 transition-all cursor-pointer">
+              Tes Sekarang
+            </button>
+          </Link>
         </div>
         {/* Right: Steps */}
         <div className="flex-1 flex flex-col gap-6 w-full max-w-lg">

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -33,9 +34,9 @@ export default function Footer() {
           </h2>
           <ul className="text-gray-600 font-medium space-y-3">
             <li>
-              <a href="#tes" className="hover:underline">
+              <Link href="/tes-hipertensi" className="hover:underline">
                 Tes Hipertensi
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#tentang" className="hover:underline">
