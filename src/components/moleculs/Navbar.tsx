@@ -89,18 +89,20 @@ export default function Navbar() {
       >
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4">
           {/* Logo Section */}
-          <div className="flex items-center gap-3">
-            <Image
-              src="/assets/logo-sadari.png"
-              alt="SADARI 4LIFE Logo"
-              width={48}
-              height={48}
-              priority
-            />
-            <span className="text-lg text-navy font-bold tracking-wide">
-              SADARI 4LIFE
-            </span>
-          </div>
+          <Link href="/">
+            <div className="flex items-center gap-3">
+              <Image
+                src="/assets/logo-sadari.png"
+                alt="SADARI 4LIFE Logo"
+                width={48}
+                height={48}
+                priority
+              />
+              <span className="text-lg text-navy font-bold tracking-wide">
+                SADARI 4LIFE
+              </span>
+            </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8 text-md text-slate-800">
