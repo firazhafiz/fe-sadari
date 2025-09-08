@@ -33,10 +33,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${poppins.variable} ${delius.variable} antialiased`}
-    >
+    <html lang="en" className={`${poppins.variable} ${delius.variable} antialiased`}>
+      <head>
+        <link rel="preload" href="/_next/static/css/93d5035d361ae225.css" as="style" />
+        <link rel="preload" href="/hero-image.jpg" as="image" />
+      </head>
       <body>
         <AnswerProvider>{children}</AnswerProvider>
       </body>
