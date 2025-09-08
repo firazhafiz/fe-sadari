@@ -22,7 +22,7 @@ export function HeroScrollDemo({
     transform: "translate(-50%, -50%)",
   };
   return (
-    <div className="lg:pt-0 pt-25 flex flex-col overflow-hidden">
+    <div className="flex flex-col overflow-hidden">
       <ContainerScroll
         titleComponent={
           <>
