@@ -111,7 +111,7 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className="hover:opacity-80 transition-opacity"
+                className="hover:text-navy transition-opacity"
               >
                 {link.label}
               </Link>

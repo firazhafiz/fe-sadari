@@ -7,18 +7,20 @@ export default function Footer() {
       <div className="container mx-auto px-4 md:px-8 grid md:grid-cols-3 gap-8">
         {/* Logo & Deskripsi */}
         <div>
-          <p className="flex items-center mb-4">
-            <Image
-              src={"/assets/logo-sadari.png"}
-              width={32}
-              height={32}
-              className="h-8 me-3"
-              alt="SADARI 4LIFE Logo"
-            />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap text-gray-900">
-              SADARI 4LIFE
-            </span>
-          </p>
+          <Link href="/">
+            <p className="flex items-center gap-2 mb-4">
+              <Image
+                src={"/assets/logo-sadari.png"}
+                width={32}
+                height={32}
+                className="h-8 w-auto"
+                alt="SADARI 4LIFE Logo"
+              />
+              <span className="self-center text-2xl font-semibold whitespace-nowrap text-navy">
+                SADARI 4LIFE
+              </span>
+            </p>
+          </Link>
           <p className="text-gray-600 text-sm leading-relaxed">
             Platform edukasi kesehatan yang membantu Anda memahami, mencegah,
             dan mengenali risiko{" "}
