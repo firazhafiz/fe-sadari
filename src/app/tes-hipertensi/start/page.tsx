@@ -249,7 +249,7 @@ export default function Start() {
             className={`px-8 py-3 rounded-full transition-all duration-200 font-medium ${
               !isCurrentQuestionAnswered()
                 ? "bg-gray-300 cursor-not-allowed opacity-50 text-gray-500"
-                : "bg-green-500 cursor-pointer hover:bg-green-600 text-white shadow-lg"
+                : "bg-[#81BC66] cursor-pointer hover:-translate-y-0.5 text-white shadow-lg"
             }`}
             title="Selesai dan Lihat Hasil"
           >

@@ -13,31 +13,30 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-function formatDate(date: Date | undefined) {
-  if (!date) {
-    return "";
-  }
-
-  return date.toLocaleDateString("en-US", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
+function formatDisplay(date: Date | undefined) {
+  if (!date) return "";
+  const dd = String(date.getDate()).padStart(2, "0");
+  const month = date.toLocaleString("id-ID", { month: "long" });
+  const yyyy = date.getFullYear();
+  return `${dd} ${month}, ${yyyy}`;
 }
 
-function isValidDate(date: Date | undefined) {
-  if (!date) {
-    return false;
-  }
-  return !isNaN(date.getTime());
+function formatISO(date: Date | undefined) {
+  if (!date) return "";
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, "0");
+  const dd = String(date.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
 }
 
 export function Calendar28({
   label = "Tanggal Lahir",
   placeholder = "Pilih tanggal",
+  onChange,
 }: {
   label?: string;
   placeholder?: string;
+  onChange?: (value: string, date?: Date, display?: string) => void;
 }) {
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState<Date | undefined>(undefined);
@@ -52,21 +51,10 @@ export function Calendar28({
           id="date"
           value={value}
           placeholder={placeholder}
-          className="w-full bg-white text-slate-800"
-          onChange={(e) => {
-            const date = new Date(e.target.value);
-            setValue(e.target.value);
-            if (isValidDate(date)) {
-              setDate(date);
-              setMonth(date);
-            }
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "ArrowDown") {
-              e.preventDefault();
-              setOpen(true);
-            }
-          }}
+          className="w-full bg-white text-slate-800 cursor-pointer"
+          readOnly
+          onFocus={() => setOpen(true)}
+          onClick={() => setOpen(true)}
         />
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
@@ -91,9 +79,12 @@ export function Calendar28({
               captionLayout="dropdown"
               month={month}
               onMonthChange={setMonth}
-              onSelect={(date) => {
-                setDate(date);
-                setValue(formatDate(date));
+              onSelect={(d) => {
+                setDate(d);
+                const display = formatDisplay(d);
+                const iso = formatISO(d);
+                setValue(display);
+                onChange?.(iso, d, display);
                 setOpen(false);
               }}
             />
