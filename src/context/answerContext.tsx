@@ -76,7 +76,7 @@ export const AnswerProvider = ({ children }: { children: ReactNode }) => {
     return null;
   };
 
-  const submitAnswers = async (): Promise<{ success: boolean; data?: CreateAnswerResponse; error?: string }> => {
+  const submitAnswers = async () => {
     if (!formAnswer || !formAnswer.user || formAnswer.answers.length === 0) {
       return {
         success: false,
@@ -105,46 +105,26 @@ export const AnswerProvider = ({ children }: { children: ReactNode }) => {
         })),
       };
 
-      console.log("Submitting data:", {
-        user: requestData.user,
-        totalScore: totalScore,
-        maxPossibleScore: maxPossibleScore,
-        calculatedPercentage: calculatedPercentage,
-        hasil_persen: requestData.hasil_persen,
-        detailsCount: requestData.details.length,
-        firstDetail: requestData.details[0],
-      });
-
       const response = await fetch("/api/answers", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify(requestData),
       });
 
-      const result: ApiResponse<CreateAnswerResponse> = await response.json();
+      const data = await response.json();
 
-      console.log("API Response:", {
-        status: response.status,
-        success: result.success,
-        hasData: !!result.data,
-        error: result.error,
-      });
-
-      if (result.success && result.data) {
+      if (response.status) {
         // Store the submitted user ID and clear form data
-        setSubmittedUserId(result.data.user.id || null);
+        setSubmittedUserId(data.data.user.id || null);
         setFormAnswer(null);
         return {
           success: true,
-          data: result.data,
+          data,
         };
       } else {
-        console.error("API Error:", result.error);
+        console.error("API Error:", data.error);
         return {
           success: false,
-          error: result.error || "Failed to submit answers",
+          error: data.error || "Failed to submit answers",
         };
       }
     } catch (error) {
@@ -158,7 +138,6 @@ export const AnswerProvider = ({ children }: { children: ReactNode }) => {
 
   const clearAllData = () => {
     setFormAnswer(null);
-    setSubmittedUserId(null);
   };
 
   const confirmExit = () => {

@@ -39,7 +39,7 @@ export type ApiResponse<T> = {
 };
 
 export type CreateAnswerRequest = {
-  user: Omit<User, "id" | "created_at" | "updated_at">;
+  user: Omit<User, "id">;
   hasil_persen: number;
   details: Omit<AnswerDetail, "id">[];
 };

@@ -184,9 +184,6 @@ export default function Start() {
             </p> */}
           </div>
 
-          {/* Answer Progress */}
-          {/* <AnswerProgress /> */}
-
           {/* Pertanyaan */}
           <p className="mt-4 text-base md:text-lg font-light text-gray-800 leading-relaxed text-start">
             {soalHipertensi[currentSoal].soal}
