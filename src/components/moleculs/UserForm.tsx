@@ -20,6 +20,22 @@ export default function UserForm({ onComplete }: { onComplete: () => void }) {
     Partial<Record<keyof typeof formData, string>>
   >({});
 
+  const validateField = async (field: keyof typeof formData, value: string) => {
+    try {
+      await userFormSchema.validateAt(field, { ...formData, [field]: value });
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    } catch (err) {
+      if (err instanceof yup.ValidationError) {
+        setErrors((prev) => ({ ...prev, [field]: err.message }));
+      }
+    }
+  };
+
+  const handleChange = async (field: keyof typeof formData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    await validateField(field, value);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -58,10 +74,10 @@ export default function UserForm({ onComplete }: { onComplete: () => void }) {
     <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-xl font-extrabold text-navy mb-4">Form Data Diri</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid w-full md:max-w-none items-center gap-1.5">
+        <div className="grid w-full md:max-w-none items-center gap-3">
           <Label htmlFor="name">Nama Lengkap</Label>
           <Input
-            onChange={(e) => setFormData({ ...formData, nama: e.target.value })}
+            onChange={(e) => handleChange("nama", e.target.value)}
             type="input"
             id="name"
             placeholder="Masukkan Nama Anda"
@@ -81,9 +97,7 @@ export default function UserForm({ onComplete }: { onComplete: () => void }) {
           <textarea
             id="alamat"
             value={formData.alamat}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, alamat: e.target.value }))
-            }
+            onChange={(e) => handleChange("alamat", e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-[1px] focus:ring-navy/80 placeholder:text-gray-400 placeholder:text-sm text-sm text-slate-800"
             placeholder="Masukkan Alamat Lengkap"
             rows={3}
@@ -93,11 +107,9 @@ export default function UserForm({ onComplete }: { onComplete: () => void }) {
           )}
         </div>
 
-        <div className="grid w-full md:max-w-none items-center gap-1.5">
+        <div className="grid w-full md:max-w-none items-center">
           <Calendar28
-            onChange={(value) =>
-              setFormData((prev) => ({ ...prev, tanggal_lahir: value }))
-            }
+            onChange={(value) => handleChange("tanggal_lahir", value)}
             label="Tanggal Lahir"
           />
           {errors.tanggal_lahir && (
@@ -105,13 +117,11 @@ export default function UserForm({ onComplete }: { onComplete: () => void }) {
           )}
         </div>
 
-        <div className="grid w-full md:max-w-none items-center gap-1.5">
+        <div className="grid w-full md:max-w-none items-center gap-3">
           <Label htmlFor="phone">No Handphone</Label>
           <Input
             type="text"
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, no_hp: e.target.value }))
-            }
+            onChange={(e) => handleChange("no_hp", e.target.value)}
             id="phone"
             placeholder="628xxxxxxxxx"
           />
