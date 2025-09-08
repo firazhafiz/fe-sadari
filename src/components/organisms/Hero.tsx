@@ -26,9 +26,9 @@ export function HeroScrollDemo({
       <ContainerScroll
         titleComponent={
           <>
-            <h1 className="lg:text-4xl text-3xl font-extralight text-slate-800">
+            <h1 className="md:text-4xl text-2xl font-extralight text-slate-800">
               Selamat datang di <br />
-              <span className="text-6xl lg:text-8xl text-[#FD567E] font-bold mt-1 leading-none">
+              <span className="text-5xl md:text-8xl text-[#FD567E] font-bold mt-1 leading-none">
                 SADARi 4LIFE
               </span>
             </h1>
