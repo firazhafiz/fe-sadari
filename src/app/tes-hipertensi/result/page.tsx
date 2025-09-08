@@ -1,12 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  Activity,
-  Apple,
-  Shield,
-  CheckCircle,
-  AlertTriangle,
-} from "lucide-react";
+import { Activity, Apple, Shield, CheckCircle, AlertTriangle } from "lucide-react";
 import Image from "next/image";
 import { useAnswerContext } from "@/context/answerContext";
 import { hasilHipertensi } from "@/data/hasil";
@@ -63,11 +57,9 @@ export default function Result() {
     if (!userData || !userData.answers.length) return null;
 
     const latestAnswer = userData.answers[0];
-    const totalScore = latestAnswer.details.reduce(
-      (total, detail) => total + detail.score,
-      0
-    );
-    const maxPossibleScore = 120;
+    const totalScore = latestAnswer.details.reduce((total, detail) => total + detail.score, 0);
+    const maxPossibleScore = 110;
+
     const percentage = Math.min((totalScore / maxPossibleScore) * 100, 100);
 
     // Determine result category based on percentage
@@ -104,19 +96,14 @@ export default function Result() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="text-red-500 text-6xl mb-4">⚠️</div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
-            Terjadi Kesalahan
-          </h2>
-          <p className="text-gray-600 mb-4">
-            {error || "Data tidak ditemukan"}
-          </p>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">Terjadi Kesalahan</h2>
+          <p className="text-gray-600 mb-4">{error || "Data tidak ditemukan"}</p>
           <button
             onClick={() => {
               clearAllData();
               router.push("/tes-hipertensi/start");
             }}
-            className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
-          >
+            className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
             Mulai Tes Ulang
           </button>
         </div>
@@ -132,8 +119,7 @@ export default function Result() {
           style={{
             backgroundImage: `radial-gradient(circle at 2px 2px, #10b981 1px, transparent 0)`,
             backgroundSize: "40px 40px",
-          }}
-        ></div>
+          }}></div>
       </div>
 
       <div className="relative px-4 sm:px-6 md:px-12 lg:px-20 py-8">
@@ -141,16 +127,8 @@ export default function Result() {
           {/* Header Section */}
           {/* Logo & Title */}
           <div className="flex gap-3 sm:gap-4 items-center justify-center mb-8">
-            <Image
-              src={"/assets/logo-sadari.png"}
-              width={64}
-              height={64}
-              alt="SADARI 4LIFE Logo"
-              className="h-12 sm:h-16 w-auto"
-            />
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">
-              SADARI 4LIFE
-            </h2>
+            <Image src={"/assets/logo-sadari.png"} width={64} height={64} alt="SADARI 4LIFE Logo" className="h-12 sm:h-16 w-auto" />
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">SADARI 4LIFE</h2>
           </div>
 
           {/* Results Section */}
@@ -159,9 +137,7 @@ export default function Result() {
             <div className=" px-8 pt-6">
               <div className="flex items-center justify-center gap-3">
                 <CheckCircle className="w-8 h-8 text-gray-700" />
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-700">
-                  Hasil Tes Anda
-                </h2>
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-700">Hasil Tes Anda</h2>
               </div>
             </div>
 
@@ -177,35 +153,24 @@ export default function Result() {
                         className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg"
                         style={{
                           background: `linear-gradient(135deg, ${result.resultCategory.warna}, ${result.resultCategory.warna}dd)`,
-                        }}
-                      >
+                        }}>
                         <Shield className="w-10 h-10 text-white" />
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-700 mb-2">
-                        Status Kesehatan
-                      </h3>
-                      <p
-                        className="text-4xl sm:text-5xl font-bold mb-2"
-                        style={{ color: result.resultCategory.warna }}
-                      >
+                      <h3 className="text-lg font-semibold text-gray-700 mb-2">Status Kesehatan</h3>
+                      <p className="text-4xl sm:text-5xl font-bold mb-2" style={{ color: result.resultCategory.warna }}>
                         {Math.round(result.percentage)}%
                       </p>
                       <div
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full"
                         style={{
                           backgroundColor: `${result.resultCategory.warna}20`,
-                        }}
-                      >
+                        }}>
                         <div
                           className="w-2 h-2 rounded-full animate-pulse"
                           style={{
                             backgroundColor: result.resultCategory.warna,
-                          }}
-                        ></div>
-                        <span
-                          className="font-medium"
-                          style={{ color: result.resultCategory.warna }}
-                        >
+                          }}></div>
+                        <span className="font-medium" style={{ color: result.resultCategory.warna }}>
                           {result.resultCategory.kategori}
                         </span>
                       </div>
@@ -215,9 +180,7 @@ export default function Result() {
 
                 {/* Description */}
                 <div className="flex items-center max-w-[500px]">
-                  <p className="text-gray-700 leading-relaxed text-lg">
-                    {result.resultCategory.penjelasan}
-                  </p>
+                  <p className="text-gray-700 leading-relaxed text-lg">{result.resultCategory.penjelasan}</p>
                 </div>
               </div>
 
@@ -229,19 +192,15 @@ export default function Result() {
                     <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                       <Activity className="w-5 h-5 text-white" />
                     </div>
-                    <h3 className="font-bold text-gray-800">
-                      {result.resultCategory.aktivitas_fisik.judul}
-                    </h3>
+                    <h3 className="font-bold text-gray-800">{result.resultCategory.aktivitas_fisik.judul}</h3>
                   </div>
                   <ul className="space-y-3 text-gray-700">
-                    {result.resultCategory.aktivitas_fisik.rekomendasi.map(
-                      (rec, index) => (
-                        <li key={index} className="flex items-start gap-2">
-                          <CheckCircle className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
-                          <span className="text-sm">{rec}</span>
-                        </li>
-                      )
-                    )}
+                    {result.resultCategory.aktivitas_fisik.rekomendasi.map((rec, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
+                        <span className="text-sm">{rec}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
 
@@ -251,19 +210,15 @@ export default function Result() {
                     <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                       <Apple className="w-5 h-5 text-white" />
                     </div>
-                    <h3 className="font-bold text-gray-800">
-                      {result.resultCategory.diet.judul}
-                    </h3>
+                    <h3 className="font-bold text-gray-800">{result.resultCategory.diet.judul}</h3>
                   </div>
                   <ul className="space-y-3 text-gray-700">
-                    {result.resultCategory.diet.rekomendasi.map(
-                      (rec, index) => (
-                        <li key={index} className="flex items-start gap-2">
-                          <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                          <span className="text-sm">{rec}</span>
-                        </li>
-                      )
-                    )}
+                    {result.resultCategory.diet.rekomendasi.map((rec, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                        <span className="text-sm">{rec}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
 
@@ -273,9 +228,7 @@ export default function Result() {
                     <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-pink-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                       <AlertTriangle className="w-5 h-5 text-white" />
                     </div>
-                    <h3 className="font-bold text-gray-800">
-                      {result.resultCategory.avoid.judul}
-                    </h3>
+                    <h3 className="font-bold text-gray-800">{result.resultCategory.avoid.judul}</h3>
                   </div>
                   <ul className="space-y-3 text-gray-700">
                     {result.resultCategory.avoid.items.map((item, index) => (
@@ -292,8 +245,7 @@ export default function Result() {
               {result.resultCategory.informasi_tambahan && (
                 <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                   <p className="text-sm text-yellow-800 text-center">
-                    <strong>Informasi Tambahan:</strong>{" "}
-                    {result.resultCategory.informasi_tambahan}
+                    <strong>Informasi Tambahan:</strong> {result.resultCategory.informasi_tambahan}
                   </p>
                 </div>
               )}
@@ -301,10 +253,7 @@ export default function Result() {
               {/* Disclaimer */}
               <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <p className="text-sm text-yellow-800 text-center">
-                  ⚠️ <strong>Peringatan:</strong> Hasil tes ini hanya untuk
-                  screening awal dan tidak menggantikan diagnosis medis.
-                  Konsultasikan dengan dokter untuk pemeriksaan yang lebih
-                  akurat.
+                  ⚠️ <strong>Peringatan:</strong> Hasil tes ini hanya untuk screening awal dan tidak menggantikan diagnosis medis. Konsultasikan dengan dokter untuk pemeriksaan yang lebih akurat.
                 </p>
               </div>
             </div>
@@ -313,27 +262,18 @@ export default function Result() {
           {/* CTA Section */}
           <div className="text-center bg-white rounded-2xl  p-8">
             <div className="max-w-2xl mx-auto">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                Jaga Kesehatan Anda
-              </h3>
-              <p className="text-gray-600 mb-6">
-                Lakukan pemeriksaan rutin dan terapkan gaya hidup sehat untuk
-                mempertahankan kondisi optimal Anda.
-              </p>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">Jaga Kesehatan Anda</h3>
+              <p className="text-gray-600 mb-6">Lakukan pemeriksaan rutin dan terapkan gaya hidup sehat untuk mempertahankan kondisi optimal Anda.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
                   onClick={() => {
                     clearAllData();
                     router.push("/tes-hipertensi/start");
                   }}
-                  className="px-8 cursor-pointer py-3 bg-gradient-to-br from-teal-400 to-teal-600 text-white font-semibold rounded-md transition-all duration-300 hover:scale-105"
-                >
+                  className="px-8 cursor-pointer py-3 bg-gradient-to-br from-teal-400 to-teal-600 text-white font-semibold rounded-md transition-all duration-300 hover:scale-105">
                   Tes Ulang
                 </button>
-                <button
-                  onClick={() => window.print()}
-                  className="px-8 cursor-pointer py-3 border-2 border-teal-600 text-teal-600 font-semibold rounded-md hover:bg-teal-200/20 transition-all duration-300"
-                >
+                <button onClick={() => window.print()} className="px-8 cursor-pointer py-3 border-2 border-teal-600 text-teal-600 font-semibold rounded-md hover:bg-teal-200/20 transition-all duration-300">
                   Cetak Hasil
                 </button>
                 <button
@@ -341,8 +281,7 @@ export default function Result() {
                     clearAllData();
                     router.push("/");
                   }}
-                  className="px-8 flex justify-center items-center gap-2 cursor-pointer py-3 border-2 border-gray-300 text-gray-600 font-semibold rounded-md hover:bg-gray-50 transition-all duration-300"
-                >
+                  className="px-8 flex justify-center items-center gap-2 cursor-pointer py-3 border-2 border-gray-300 text-gray-600 font-semibold rounded-md hover:bg-gray-50 transition-all duration-300">
                   <TbHomeMove className="text-lg" />
                   Beranda
                 </button>
