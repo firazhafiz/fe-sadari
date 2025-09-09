@@ -54,8 +54,7 @@ export default function Navbar() {
     const duration = 1200;
     const startTime = performance.now();
 
-    const easeInOutCubic = (t: number) =>
-      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
     const step = (currentTime: number) => {
       const elapsed = currentTime - startTime;
@@ -69,10 +68,7 @@ export default function Navbar() {
     requestAnimationFrame(step);
   };
 
-  const handleNavClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith("#")) {
       e.preventDefault();
       smoothScrollTo(href);
@@ -82,96 +78,46 @@ export default function Navbar() {
 
   return (
     <>
-      <nav
-        className={`w-full fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          scrolled ? "bg-white/70 backdrop-blur-md shadow-sm" : "bg-white"
-        }`}
-      >
+      <nav className={`w-full fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/70 backdrop-blur-md shadow-sm" : "bg-white"}`}>
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4">
           {/* Logo Section */}
           <Link href="/">
             <div className="flex items-center gap-3">
-              <Image
-                src="/assets/logo-sadari.png"
-                alt="SADARI 4LIFE Logo"
-                width={48}
-                height={48}
-                priority
-              />
-              <span className="text-lg text-navy font-bold tracking-wide">
-                SADARI 4LIFE
-              </span>
+              <Image src="/assets/logo-sadari.png" alt="SADARI 4LIFE Logo" width={48} height={48} priority />
+              <span className="text-lg text-navy font-bold tracking-wide">SADARI 4LIFE</span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8 text-md text-slate-800">
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="hover:text-navy transition-opacity"
-              >
+              <Link key={link.href} href={link.href} onClick={(e) => handleNavClick(e, link.href)} className="hover:text-navy transition-opacity">
                 {link.label}
               </Link>
             ))}
           </div>
 
           {/* Mobile/Tablet Menu Button */}
-          <button
-            className="lg:hidden flex items-center justify-center w-9 h-9 focus:outline-none text-slate-800"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? (
-              <HiOutlineX className="w-6 h-6 text-slate-700" />
-            ) : (
-              <HiOutlineMenu className="w-6 h-6 text-red-slate-700" />
-            )}
+          <button className="lg:hidden flex items-center justify-center w-9 h-9 focus:outline-none text-slate-800" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
+            {mobileMenuOpen ? <HiOutlineX className="w-6 h-6 text-slate-700" /> : <HiOutlineMenu className="w-6 h-6 text-red-slate-700" />}
           </button>
         </div>
       </nav>
 
       {/* Mobile/Tablet Menu Overlay */}
-      <div
-        className={`fixed inset-0 z-40 lg:hidden transition-all duration-500 ease-in-out ${
-          mobileMenuOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
-        }`}
-      >
+      <div className={`fixed inset-0 z-40 lg:hidden transition-all duration-500 ease-in-out ${mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
         {/* Backdrop */}
-        <div
-          className="absolute inset-0 bg-slate-800/40"
-          onClick={closeMobileMenu}
-        />
+        <div className="absolute inset-0 bg-slate-800/40" onClick={closeMobileMenu} />
 
         {/* Menu Panel */}
-        <div
-          className={`absolute top-0 right-0 h-full w-1/2 max-w-[80vw] bg-white shadow-xl transform transition-transform duration-500 ease-in-out ${
-            mobileMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-        >
+        <div className={`absolute top-0 right-0 h-full w-1/2 max-w-[80vw] bg-white shadow-xl transform transition-transform duration-500 ease-in-out ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}>
           {/* Menu Header */}
           <div className="flex items-center justify-between p-4 border-b border-gray-100">
             <div className="flex items-center gap-3">
-              <Image
-                src="/assets/logo-sadari.png"
-                alt="SADARI 4LIFE Logo"
-                width={32}
-                height={32}
-                priority
-              />
-              <span className="text-sm text-navy font-bold tracking-wide">
-                SADARI 4LIFE
-              </span>
+              <Image src="/assets/logo-sadari.png" alt="SADARI 4LIFE Logo" width={32} height={32} priority />
+              <span className="text-sm text-navy font-bold tracking-wide">SADARI 4LIFE</span>
             </div>
-            <button
-              onClick={closeMobileMenu}
-              className="flex items-center justify-center w-9 h-9 text-slate-800 hover:text-slate-900 focus:outline-none"
-              aria-label="Close menu"
-            >
+            <button onClick={closeMobileMenu} className="flex items-center justify-center w-9 h-9 text-slate-800 hover:text-slate-900 focus:outline-none" aria-label="Close menu">
               <HiOutlineX className="w-6 h-6" />
             </button>
           </div>
@@ -186,10 +132,7 @@ export default function Navbar() {
                   handleNavClick(e, link.href);
                   closeMobileMenu();
                 }}
-                className={`px-6 py-4 text-lg text-slate-800 hover:bg-navy hover:text-white transition-colors border-b border-gray-50 ${
-                  index === navLinks.length - 1 ? "border-b-0" : ""
-                }`}
-              >
+                className={`px-6 py-4 text-lg text-slate-800 hover:bg-navy hover:text-white transition-colors border-b border-gray-50 ${index === navLinks.length - 1 ? "border-b-0" : ""}`}>
                 {link.label}
               </Link>
             ))}

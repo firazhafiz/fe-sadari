@@ -19,6 +19,7 @@
     "@supabase/supabase-js": "^2.56.1",
     "date-fns": "^4.1.0",
     "gsap": "^3.12.5",
+    "json2csv": "^6.0.0-alpha.2",
     "next": "15.5.2",
     "react": "19.1.0",
     "react-day-picker": "^9.9.0",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.1.12",
+    "@types/json2csv": "^5.0.7",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

@@ -1,14 +1,14 @@
 import { HeroScrollDemo } from "@/components/organisms/Hero";
 import Gejala from "@/components/organisms/Gejala";
-import ScrollButton from "@/components/moleculs/ScrollButton";
 import About from "@/components/organisms/About";
 import Tips from "@/components/organisms/Tips";
-import Footer from "@/components/organisms/Footer";
 import TestimoniLeft from "@/components/organisms/TestimoniLeft";
 import TestimoniRight from "@/components/organisms/TestimoniRight";
 import TestimoniTitle from "@/components/atoms/TestimoniTitle";
+import ModalWrapper from "@/components/organisms/ModalWrapper";
 import Navbar from "@/components/moleculs/Navbar";
 import BannerHeader from "@/components/moleculs/BannerHeader";
+import ButtonScroll from "@/components/moleculs/ScrollButton";
 
 export default function Home() {
   return (
@@ -16,7 +16,7 @@ export default function Home() {
       <section>
         <Navbar />
         <BannerHeader />
-        <ScrollButton />
+        <ButtonScroll />
       </section>
       <section>
         <HeroScrollDemo />
@@ -40,7 +40,7 @@ export default function Home() {
         <TestimoniRight />
       </section>
       <section>
-        <Footer />
+        <ModalWrapper />
       </section>
     </main>
   );
