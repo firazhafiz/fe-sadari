@@ -3,6 +3,17 @@ import prisma from "../../../../prisma";
 import { Parser } from "json2csv";
 import { createHash } from "crypto";
 
+type Answer = {
+  created_at: Date | null;
+  user_id: number;
+  nama: string;
+  alamat: string | null;
+  tanggal_lahir: Date | null;
+  no_hp: string | null;
+  hasil_persen: number | null;
+  [key: `soal_${number}`]: string;
+};
+
 export async function POST(req: Request) {
   try {
     const { email, password } = await req.json();
@@ -49,7 +60,7 @@ export async function POST(req: Request) {
 
     // flatten data
     const flatData = res.map((item) => {
-      const row: any = {
+      const row: Answer = {
         created_at: item.created_at,
         user_id: item.user.id,
         nama: item.user.nama,
@@ -81,7 +92,7 @@ export async function POST(req: Request) {
         "Content-Disposition": 'attachment; filename="hasil-tes.csv"',
       },
     });
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message || "error" }, { status: 400 });
+  } catch (error) {
+    return NextResponse.json({ message: error || "error" }, { status: 400 });
   }
 }
