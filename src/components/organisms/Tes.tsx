@@ -25,21 +25,32 @@ export default function Tes({ mobileTitleClass = "text-2xl", mobileTitleMaxWClas
         <h1 className="hidden md:block text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
           Tes Screening Hipertensi by <span className="text-[#FD567E]">SADARI 4LIFE</span>
         </h1>
-        <p className="mt-3 text-slate-700 text-sm md:text-base max-w-xl">Tes ini dirancang untuk membantu kamu menganalisis resiko terkena penyakit hipertensi sejak dini.</p>
         <div className="mt-6">
-          <h2 className="text-lg font-semibold text-slate-900">Panduan Pengisian</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Tes ini bertujuan untuk</h2>
           <ul className="mt-2 list-disc pl-5 space-y-1 text-slate-700 text-sm md:text-base">
-            <li>Setiap peserta tes wajib mengisi form data diri terlebih dahulu.</li>
-            <li>Gak ada jawaban yang benar atau salah. Isilah dengan jujur sesuai keadaanmu.</li>
-            <li>Santai aja, tes ini gak diberi waktu, kok.</li>
-            <li>Cari tempat yang nyaman dan kondusif supaya kamu lebih fokus.</li>
-            <li>Jika kamu keluar di tengah tes, maka seluruh proses tes dan jawaban akan hilang.</li>
-            <li>Hasil tes bisa kamu dapatkan setelah mengisi semua pertanyaan dengan lengkap.</li>
+            <li>Mendeteksi risiko hipertensi sejak dini .</li>
+            <li>Memberikan edukasi tentang faktor-faktor yang mempengaruhi tekanan darah.</li>
+            <li>Membantu Anda mengambil langkah awal untuk menjaga kesehatan.</li>
+          </ul>
+        </div>
+        <div className="mt-6">
+          <h2 className="text-lg font-semibold text-slate-900">Cara Mengikuti Tes</h2>
+          <ul className="mt-2 list-disc pl-5 space-y-1 text-slate-700 text-sm md:text-base">
+            <li>Masukan data diri Anda.</li>
+            <li>Jawab 20 pertanyaan dengan jujur dan sesuai kondisi Anda.</li>
+            <li>
+              Setelah selesai, Anda akan mendapatkan:
+              <ul className="list-disc pl-4 mt-1 space-y-1">
+                <li>Persentase risiko hipertensi.</li>
+                <li>Kategori tekanan darah Anda.</li>
+                <li> Saran gaya hidup dan tindak lanjut.</li>
+              </ul>
+            </li>
           </ul>
         </div>
 
         <div className="mt-8">
-          <Link href="/tes-hipertensi/start" className="px-6 py-3 rounded-sm border-1 border-[#0686F9] text-navy text-sm md:text-base font-semibold hover:bg-[#0686F9] hover:text-white transition-all">
+          <Link href="/tes-hipertensi/start" className="px-6 py-3 rounded-sm border-1 border-navy text-navy text-sm md:text-base font-semibold hover:bg-navy hover:text-white transition-all">
             Tes Sekarang
           </Link>
         </div>
