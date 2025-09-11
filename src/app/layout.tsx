@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   title: "SADARI 4LIFE - Tes Screening Hipertensi",
   description: "Tes screening hipertensi untuk kesehatan yang lebih baik",
   icons: {
-    icon: [{ url: "/icons/logo-sadari.svg", type: "image/svg+xml" }],
+    icon: [{ url: "/assets/logo-sadari.png", type: "image/svg+xml" }],
   },
 };
 
