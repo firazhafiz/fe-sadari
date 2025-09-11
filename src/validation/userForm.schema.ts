@@ -7,7 +7,7 @@ export const userFormSchema = yup.object({
     .string()
     .trim()
     .required("Nama lengkap wajib diisi")
-    .min(3, "Nama minimal 5 karakter")
+    .min(5, "Nama minimal 5 karakter")
     .max(100, "Nama maksimal 100 karakter"),
 
   alamat: yup
